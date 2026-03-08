@@ -1,6 +1,17 @@
-# React + TypeScript + Vite
+# Duri Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript + Vite with Tailwind CSS v4.
+
+## Development
+
+This project uses [pnpm](https://pnpm.io/). Install dependencies and run the dev server:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+- `node_modules` and `.pnpm-store` are gitignored; do not commit the pnpm store.
 
 Currently, two official plugins are available:
 
