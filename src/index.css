@@ -17,6 +17,14 @@
   font-display: swap;
 }
 
+@theme inline {
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  --color-divider: var(--divider);
+}
+
 :root {
   font-family:
     "Inter",
@@ -36,6 +44,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --brand: #00a86b;
+  --on-brand: #fff;
+  --background: #fff;
+  --on-background: #003220;
+  --divider: #e6e4e2;
 }
 
 @layer base {
