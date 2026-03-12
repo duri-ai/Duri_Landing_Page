@@ -1,3 +1,4 @@
+import { ChevronRightIcon, PartyPopperIcon } from "lucide-react";
 
 function App() {
 
@@ -8,7 +9,7 @@ function App() {
         <div className="flex items-center justify-between p-4 md:py-0 md:px-8">
 
           <a href="/">
-            <img src="/logos/duri.svg" className="h-5" alt="Duri Logo" />
+            <img src="/logos/duri.svg" className="h-5" alt="Duri Text Logo" />
           </a >
 
           <div className="inline-flex items-center gap-3 md:py-4">
@@ -27,13 +28,17 @@ function App() {
       <div className="w-full mt-[67px] md:mt-[77px] min-w-xs relative">
         <div className="absolute inset-0 bg-size-[105px_105px] bg-[linear-gradient(90deg,rgba(0,0,0,.55)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.55)_1px,transparent_0)] opacity-10 z-5" />
         <div className="absolute inset-0 bg-[linear-gradient(0deg,#fff,transparent)] z-10" />
-        <div className="w-full p-5 flex flex-col justify-center items-center text-center relative z-15">
-          <div className="mb-11.25">Introducing the Fetch API: One call to pull data from any URL</div>
-          <img src="/logos/d.svg" className="h-8" alt="Duri Logo" />
-          <h1>We help AI use the web.</h1>
-          <p className="mt-3.75">Autonomously read, write, and perform tasks on the web with a headless browser.</p>
+        <div className="w-full py-22.5 flex flex-col justify-center items-center text-center relative z-15">
+          <div className="mb-12 border border-divider rounded-xs py-3 px-4 bg-background flex items-center gap-2 hover:bg-black hover:text-on-brand hover:cursor-pointer">
+            <PartyPopperIcon className="w-5 h-5" />
+            <span className="text-xl">Introducing Duri: AI business operator with a collaborative workspace.</span>
+            <ChevronRightIcon className="w-5 h-5" />
+          </div>
+          <img src="/logos/d.svg" className="h-20" alt="Duri Initial Logo" />
+          <h1 className="mt-5 text-7xl">We automate back-office tasks.</h1>
+          <p className="mt-3.75 text-2xl opacity-80">An AI business operator for small and medium businesses.</p>
         </div>
-      </div>
+      </div >
     </>
   )
 }
