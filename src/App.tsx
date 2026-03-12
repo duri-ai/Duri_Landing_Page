@@ -27,7 +27,9 @@ function App() {
 
       <div className="w-full mt-[67px] md:mt-[77px] min-w-xs relative">
         <div className="absolute inset-0 bg-size-[105px_105px] bg-[linear-gradient(90deg,rgba(0,0,0,.55)_1px,transparent_0),linear-gradient(180deg,rgba(0,0,0,.55)_1px,transparent_0)] opacity-10 z-5" />
+
         <div className="absolute inset-0 bg-[linear-gradient(0deg,#fff,transparent)] z-10" />
+
         <div className="w-full py-22.5 flex flex-col justify-center items-center text-center relative z-15">
           {/* TODO: Add onClick handler */}
           <div className="mb-14 border border-divider rounded-xs py-3 px-4 bg-background flex items-center gap-2 text-on-background hover:bg-on-background hover:text-on-brand hover:cursor-pointer">
@@ -52,6 +54,7 @@ function App() {
             </a>
           </div>
         </div>
+
       </div >
     </>
   )
