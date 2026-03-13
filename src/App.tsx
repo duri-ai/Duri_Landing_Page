@@ -32,25 +32,26 @@ function App() {
 
         <div className="w-full py-22.5 flex flex-col justify-center items-center text-center relative z-15">
           {/* TODO: Add onClick handler */}
-          <div className="mb-14 border border-divider rounded-xs py-3 px-4 bg-background flex items-center gap-2 text-on-background hover:bg-on-background hover:text-on-brand hover:cursor-pointer">
+          <div className="mb-14 border border-divider rounded-xs py-3 px-4 bg-background flex justify-center items-center gap-2 text-on-background hover:bg-on-background hover:text-on-brand hover:cursor-pointer w-full max-w-2xs sm:max-w-xs md:max-w-md lg:w-auto lg:max-w-none">
             <PartyPopperIcon className="w-5 h-5 transition-colors duration-200" />
-            <span className="text-xl transition-colors duration-200">Introducing Duri: AI business operator with a collaborative workspace.</span>
+            <span className="text-xl transition-colors duration-200 hidden lg:inline">Introducing Duri: AI business operator with a collaborative workspace</span>
+            <span className="text-xl transition-colors duration-200 inline lg:hidden">Introducing Duri AI</span>
             <ChevronRightIcon className="w-5 h-5 transition-colors duration-200" />
           </div>
           <img src="/logos/d.svg" className="h-20" alt="Duri Initial Logo" />
-          <h1 className="mt-5 text-7xl text-on-background">We automate back-office tasks.</h1>
-          <p className="mt-3.75 text-2xl text-on-background-secondary">An AI business operator for small and medium businesses.</p>
-          <div className="mt-10 flex items-start gap-6">
+          <h1 className="mt-5 text-4xl sm:text-4xl md:text-5xl lg:text-7xl text-on-background max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-xl xl:max-w-none">We automate back-office tasks.</h1>
+          <p className="mt-3.75 text-lg sm:text-xl md:text-2xl text-on-background-secondary max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-2xl xl:max-w-none">An AI business operator for small and medium businesses.</p>
+          <div className="mt-10 flex flex-col items-center lg:flex-row lg:items-start gap-6">
             <div>
               {/* TODO: Update href */}
               <a href="/">
-                <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-3 py-[5px] md:px-8 md:py-6 focus:outline-none transition-colors duration-500 cursor-pointer">Try for free</button>
+                <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 focus:outline-none transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
               </a>
               <p className="mt-3 text-sm text-on-background-secondary">No credit card required.</p>
             </div>
             {/* TODO: Update href */}
             <a href="/">
-              <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-3 py-[5px] md:px-8 md:py-6 focus:outline-none transition-colors duration-500 cursor-pointer">Log in</button>
+              <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 focus:outline-none transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Log in</button>
             </a>
           </div>
         </div>
