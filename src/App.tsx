@@ -99,7 +99,7 @@ function App() {
       <section className="w-full mt-[26px] mb-[80px] flex flex-col items-center">
         <h4 className="mb-[48px] text-on-background text-[16px] text-center max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-none">Duri Offers Built-in Third Party Integrations</h4>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 min-[421px]:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-8 gap-2 min-[421px]:gap-4">
           {
             thirdPartyLogos.map((party) => {
               return (
@@ -113,7 +113,7 @@ function App() {
       </section>
 
       {/* Third Section - Features Section */}
-      <section className="w-full h-screen mt-6 relative">
+      <section className="w-full h-screen mt-[26px] relative">
         <div className="absolute inset-0 bg-[url('/background/grid.svg')] bg-size-[160px_92px] bg-position-[80px_0px] z-5" />
 
         <div className="absolute inset-0 top-0 bg-[linear-gradient(180deg,#fff,transparent)] z-10 h-1/2" />
