@@ -62,9 +62,19 @@ function App() {
       <div className="w-full h-26" />
 
       {/* Second Section - Features Section */}
-      <section className="w-full h-screen mt-6 relative" >
+      <section className="w-full h-screen mt-6 relative">
         <div className="absolute inset-0 bg-[url('/background/grid.svg')] bg-size-[160px_92px] bg-position-[80px_0px] z-5" />
-        <h2>Features</h2>
+
+        <div className="absolute inset-0 top-0 bg-[linear-gradient(180deg,#fff,transparent)] z-10 h-1/2" />
+
+        <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(0deg,#fff,transparent)] z-10 h-1/10" />
+
+        <div className="z-15 relative">
+          <div className="flex justify-center items-center">
+            <h2 className="text-on-background text-3xl sm:text-3xl md:text-4xl lg:text-6xl">Features</h2>
+          </div>
+        </div>
+
       </section>
     </>
   )
