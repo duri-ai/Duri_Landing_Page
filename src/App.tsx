@@ -7,32 +7,32 @@ function App() {
       logo: "/logos/third_party/shopify.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Quickbooks",
+      logo: "/logos/third_party/quickbooks.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Gmail",
+      logo: "/logos/third_party/gmail.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Slack",
+      logo: "/logos/third_party/slack.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Notion",
+      logo: "/logos/third_party/notion.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Excel",
+      logo: "/logos/third_party/excel.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Mailchimp",
+      logo: "/logos/third_party/mailchimp.svg",
     },
     {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
+      name: "Jira",
+      logo: "/logos/third_party/jira.svg",
     },
   ]
 
