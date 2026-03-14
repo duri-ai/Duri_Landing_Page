@@ -1,6 +1,40 @@
 import { ChevronRightIcon, PartyPopperIcon } from "lucide-react";
 
 function App() {
+  const thirdPartyLogos = [
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+    {
+      name: "Shopify",
+      logo: "/logos/third_party/shopify.svg",
+    },
+  ]
 
   return (
     <>
@@ -61,7 +95,24 @@ function App() {
       {/* Spacer */}
       <div className="w-full h-26" />
 
-      {/* Second Section - Features Section */}
+      {/* Second Section - Built in Third Party Integration Section */}
+      <section className="w-full mt-[26px] mb-[80px] flex flex-col items-center">
+        <h4 className="mb-[48px] text-on-background text-[16px] text-center max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-none">Duri Offers Built-in Third Party Integrations</h4>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 min-[421px]:gap-4">
+          {
+            thirdPartyLogos.map((party) => {
+              return (
+                <div className="bg-transparent box-border border border-on-background w-[140px] min-[421px]:w-[150px] md:w-[165px] h-[100px] flex justify-center items-center">
+                  <img src={party.logo} alt={party.name} className="w-[120px]" />
+                </div>
+              )
+            })
+          }
+        </div>
+      </section>
+
+      {/* Third Section - Features Section */}
       <section className="w-full h-screen mt-6 relative">
         <div className="absolute inset-0 bg-[url('/background/grid.svg')] bg-size-[160px_92px] bg-position-[80px_0px] z-5" />
 
