@@ -123,9 +123,38 @@ function App() {
 
         <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(0deg,#fff,transparent)] z-10 h-1/10" />
 
-        <div className="z-15 relative">
-          <div className="flex justify-center items-center">
+        <div className="z-15 relative overflow-x-hidden">
+
+          <div className="flex justify-center items-center mb-[40px]">
             <h2 className="text-on-background text-3xl sm:text-3xl md:text-4xl lg:text-6xl">Features</h2>
+          </div>
+
+          <div className="flex">
+            <ul className="flex flex-col-reverse ml-5">
+              <li className="">
+                <button className="flex items-center flex-col rotate-180">
+                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-on-background text-on-brand">Feature 1</span>
+                  <img alt="triangle" loading="lazy" src="/misc_images/triangle.png" className="w-[50px] h-[50px] rotate-90" />
+                </button>
+              </li>
+              <li className="">
+                <button className="flex items-center flex-col rotate-180">
+                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-divider text-on-background">Feature 2</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90">
+                    <path fill="#CAC8C7" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
+                  </svg>
+                </button>
+              </li>
+              <li className="">
+                <button className="flex items-center flex-col rotate-180">
+                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-divider text-on-background">Feature 3</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90">
+                    <path fill="#CAC8C7" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
+                  </svg>
+                </button>
+              </li>
+            </ul>
+            <article className="box-border border border-on-background p-[16px]"></article>
           </div>
         </div>
 
