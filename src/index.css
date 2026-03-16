@@ -22,6 +22,9 @@
   --color-on-brand: var(--on-brand);
   --color-background: var(--background);
   --color-on-background-secondary: var(--on-background-secondary);
+  --color-on-background-secondary-variant: var(
+    --on-background-secondary-variant
+  );
   --color-on-background: var(--on-background);
   --color-divider: var(--divider);
 }
@@ -52,6 +55,7 @@
   --background: #fff;
   --on-background: #003220;
   --on-background-secondary: #4d7063;
+  --on-background-secondary-variant: #cfcdcb;
   --divider: #e6e4e2;
 }
 

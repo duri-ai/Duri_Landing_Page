@@ -1,40 +1,9 @@
+import React, { useState } from "react";
 import { ChevronRightIcon, PartyPopperIcon } from "lucide-react";
+import { thirdPartyLogos, features } from "./utils";
 
 function App() {
-  const thirdPartyLogos = [
-    {
-      name: "Shopify",
-      logo: "/logos/third_party/shopify.svg",
-    },
-    {
-      name: "Quickbooks",
-      logo: "/logos/third_party/quickbooks.svg",
-    },
-    {
-      name: "Gmail",
-      logo: "/logos/third_party/gmail.svg",
-    },
-    {
-      name: "Slack",
-      logo: "/logos/third_party/slack.svg",
-    },
-    {
-      name: "Notion",
-      logo: "/logos/third_party/notion.svg",
-    },
-    {
-      name: "Excel",
-      logo: "/logos/third_party/excel.svg",
-    },
-    {
-      name: "Mailchimp",
-      logo: "/logos/third_party/mailchimp.svg",
-    },
-    {
-      name: "Jira",
-      logo: "/logos/third_party/jira.svg",
-    },
-  ]
+  const [activeFeature, setActiveFeature] = useState<number>(0);
 
   return (
     <>
@@ -129,32 +98,45 @@ function App() {
             <h2 className="text-on-background text-3xl sm:text-3xl md:text-4xl lg:text-6xl">Features</h2>
           </div>
 
-          <div className="flex">
-            <ul className="flex flex-col-reverse ml-5">
-              <li className="">
-                <button className="flex items-center flex-col rotate-180">
-                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-on-background text-on-brand">Feature 1</span>
-                  <img alt="triangle" loading="lazy" src="/misc_images/triangle.png" className="w-[50px] h-[50px] rotate-90" />
-                </button>
-              </li>
-              <li className="">
-                <button className="flex items-center flex-col rotate-180">
-                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-divider text-on-background">Feature 2</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90">
-                    <path fill="#CAC8C7" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
-                  </svg>
-                </button>
-              </li>
-              <li className="">
-                <button className="flex items-center flex-col rotate-180">
-                  <span className="box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] bg-divider text-on-background">Feature 3</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90">
-                    <path fill="#CAC8C7" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
-                  </svg>
-                </button>
-              </li>
+          <div className="flex w-full px-[16px]">
+            <ul className="flex flex-col-reverse">
+              {
+                features.map((feature) => {
+                  return (
+                    <li className="" key={feature.id}>
+                      <button className="flex items-center flex-col rotate-180" onClick={() => setActiveFeature(feature.id)}>
+
+                        <span className={`box-border border border-on-background border-b-0 border-l-0 w-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] ${activeFeature === feature.id ? "bg-on-background text-on-brand" : "bg-divider text-on-background"}`}>
+                          {feature.title}
+                        </span>
+
+                        {
+                          activeFeature === feature.id ?
+                            <img alt="triangle" loading="lazy" src="/misc_images/triangle.png" className="w-[50px] h-[50px] rotate-90" /> :
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90">
+                              <path className="fill-on-background-secondary-variant" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
+                            </svg>
+                        }
+                      </button>
+                    </li>
+                  )
+                })
+              }
             </ul>
-            <article className="box-border border border-on-background p-[16px]"></article>
+            <article className="box-border border border-on-background p-[16px] flex flex-col gap-6 w-full bg-background">
+              <div className="w-full py-[64px] flex justify-center items-center">
+                {React.createElement(features[activeFeature].logo, { className: "w-2/5 h-auto" })}
+              </div>
+              <ul className="list-[square] pl-[16px] flex flex-col gap-[16px]">
+                {features[activeFeature].descriptions.map((description) => {
+                  return (
+                    <li key={description}>
+                      {description}
+                    </li>
+                  )
+                })}
+              </ul>
+            </article>
           </div>
         </div>
 
