@@ -1,4 +1,4 @@
-import { BotIcon, HeartHandshakeIcon, RssIcon } from "lucide-react";
+import { BotIcon, HeartHandshakeIcon, GlobeIcon } from "lucide-react";
 
 export const thirdPartyLogos = [
   {
@@ -58,7 +58,7 @@ export const features = [
   },
   {
     id: 2,
-    logo: RssIcon,
+    logo: GlobeIcon,
     title: "Web scraping",
     descriptions: [
       "Duri AI can scrape the internet and extract data for you.",

@@ -94,26 +94,26 @@ function App() {
 
         <div className="z-15 relative overflow-x-hidden">
 
-          <div className="flex justify-center items-center mb-[40px]">
+          <div className="flex justify-center items-center mb-[40px] md:mb-[64px]">
             <h2 className="text-on-background text-3xl sm:text-3xl md:text-4xl lg:text-6xl">Features</h2>
           </div>
 
-          <div className="flex w-full px-[16px] md:flex-col">
-            <ul className="flex flex-col-reverse md:flex-row gap-[16px]">
+          <div className="flex w-full px-[16px] md:flex-col mx-auto md:max-w-4xl xl:max-w-5xl">
+            <ul className="flex flex-col-reverse justify-between md:flex-row gap-[8px]">
               {
                 features.map((feature) => {
                   return (
-                    <li className="" key={feature.id}>
+                    <li key={feature.id}>
                       <button className="flex items-center flex-col md:flex-row rotate-180 md:rotate-0" onClick={() => setActiveFeature(feature.id)}>
 
-                        <span className={`box-border border border-on-background border-b-0 border-l-0 md:border-l md:border-r-0 w-[50px] md:w-auto md:h-[50px] px-[16px] py-[12px] [writing-mode:vertical-rl] md:[writing-mode:horizontal-tb] ${activeFeature === feature.id ? "bg-on-background text-on-brand" : "bg-divider text-on-background"}`}>
+                        <span className={`box-border border border-on-background border-b-0 border-l-0 md:border-l md:border-r-0 w-[50px] md:w-auto md:h-[50px] xl:h-[70px] px-[16px] py-[12px] [writing-mode:vertical-rl] md:[writing-mode:horizontal-tb] ${activeFeature === feature.id ? "bg-on-background text-on-brand" : "bg-divider text-on-background"} text-[18px] md:text-[16px] xl:text-[26px]`}>
                           {feature.title}
                         </span>
 
                         {
                           activeFeature === feature.id ?
-                            <img alt="triangle" loading="lazy" src="/misc_images/triangle.png" className="w-[50px] h-[50px] rotate-90 md:rotate-0" /> :
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] rotate-90 md:rotate-0">
+                            <img alt="triangle" loading="lazy" src="/misc_images/triangle.png" className="w-[50px] h-[50px] xl:w-[70px] xl:h-[70px] rotate-90 md:rotate-0" /> :
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 70 70" className="w-[50px] h-[50px] xl:w-[70px] xl:h-[70px] rotate-90 md:rotate-0">
                               <path className="fill-on-background-secondary-variant" stroke="#100D0D" d="M.5.5h.968l67.345 69H.5z"></path>
                             </svg>
                         }
@@ -123,29 +123,31 @@ function App() {
                 })
               }
             </ul>
-            <article className="box-border border border-on-background p-[16px] md:p-[32px] flex flex-col gap-6 w-full bg-background">
+            <article className="box-border border border-on-background p-[16px] md:p-[32px] xl:py-[56px] xl:pr-[113px] flex flex-col xl:flex-row gap-6 xl:gap-12 w-full bg-background">
               <div className="w-full py-[64px] flex justify-center items-center">
                 {React.createElement(features[activeFeature].logo, { className: "w-2/5 h-auto" })}
               </div>
-              <ul className="list-[square] pl-[16px] flex flex-col gap-[16px]">
-                {features[activeFeature].descriptions.map((description) => {
-                  return (
-                    <li key={description} className="text-on-background-secondary text-[16px]">
-                      {description}
-                    </li>
-                  )
-                })}
-              </ul>
-              <a className="mt-[32px] min-w-4xs max-w-2xs">
-                <div className="box-border border border-on-background py-[16px] px-[24px]">
-                  <span>Request a Demo</span>
-                  <div className="flex justify-end items-center">
-                    <span className="text-on-background box-border border-2 border-on-background p-[8px] w-[40px] h-[40px] flex justify-center items-center">
-                      <PlayIcon className="w-full h-full" strokeWidth={"3px"} />
-                    </span>
+              <div className="flex flex-col gap-6">
+                <ul className="list-[square] pl-[16px] flex flex-col gap-[16px]">
+                  {features[activeFeature].descriptions.map((description) => {
+                    return (
+                      <li key={description} className="text-on-background-secondary text-[16px]">
+                        {description}
+                      </li>
+                    )
+                  })}
+                </ul>
+                <a className="mt-[32px] min-w-4xs max-w-2xs">
+                  <div className="box-border border border-on-background py-[16px] px-[24px]">
+                    <span>Request a Demo</span>
+                    <div className="flex justify-end items-center">
+                      <span className="text-on-background box-border border-2 border-on-background p-[8px] w-[40px] h-[40px] flex justify-center items-center">
+                        <PlayIcon className="w-full h-full" strokeWidth={"3px"} />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </div>
             </article>
           </div>
         </div>
