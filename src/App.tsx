@@ -21,7 +21,7 @@ function App() {
 
             {/* TODO: Update href */}
             <a href="/">
-              <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border-2 border-transparent hover:border-brand font-normal leading-5 rounded-xs text-sm px-3 py-[5px] md:px-5 md:py-2.5 focus:outline-none transition-colors duration-500 cursor-pointer">Request a Demo</button>
+              <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border-2 border-transparent hover:border-brand font-normal leading-5 rounded-xs text-sm px-3 py-[5px] md:px-5 md:py-2.5 transition-colors duration-500 cursor-pointer">Request a Demo</button>
             </a>
           </div>
 
@@ -49,13 +49,13 @@ function App() {
             <div>
               {/* TODO: Update href */}
               <a href="/">
-                <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 focus:outline-none transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
+                <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
               </a>
               <p className="mt-3 text-sm text-on-background-secondary">No credit card required.</p>
             </div>
             {/* TODO: Update href */}
             <a href="/">
-              <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 focus:outline-none transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Log in</button>
+              <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Log in</button>
             </a>
           </div>
         </div>
@@ -154,6 +154,36 @@ function App() {
         </div>
 
       </section>
+
+      {/* Fourth Section - Footer Section */}
+      <footer className="w-full px-[14px] lg:px-[48px] bg-[#009760]">
+
+        <div className="border-x border-divider">
+          <div className="border-divider border-b-0 px-[24px] pt-[46px] pb-[30px] text-on-brand">
+            <h3 className="font-bold mb-[8px] text-[14px]">Request a Demo</h3>
+            <p className="text-[14px]">Enter your email below and we’ll reach out shortly to schedule a personalized demo tailored to your business.</p>
+          </div>
+
+          <div className="border-b border-divider px-[24px] pb-[46px] text-on-brand">
+            <form className="max-w-sm">
+              <label htmlFor="input-group-1" className="block mb-2.5 text-sm font-medium">Your Email</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                  <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" /></svg>
+                </div>
+                <input type="text" id="input-group-1" className="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium border-divider text-heading text-sm rounded-base shadow-xs placeholder:text-body placeholder:text-divider" placeholder="your_business@gmail.com" />
+              </div>
+
+              <button type="submit" className="text-on-background bg-background box-border border border-transparent hover:bg-brand-strong shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 w-full mt-[8px]">Submit</button>
+            </form>
+          </div>
+
+          <div className="px-[39px] pt-[30px] md:pt-[30px] flex justify-center border-divider">
+            <img src="/logos/duri_white.svg" className="w-auto h-full" alt="Duri Text Logo" />
+          </div>
+        </div>
+
+      </footer>
     </>
   )
 }
