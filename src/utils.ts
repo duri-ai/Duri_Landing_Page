@@ -43,9 +43,9 @@ export const features = [
     logo: no_code,
     title: "No code AI agents",
     descriptions: [
-      "Duri is a no-code agent that can be used to automate your business operations.",
-      "Use natural language to describe your needs and Duri will handle the rest.",
-      "No technical skills required that works for everyone.",
+      "Duri is a no-code AI agent designed to automate and scale your business operations.",
+      "Simply describe what you need in natural language and Duri translates it into fully executed workflows.",
+      "No technical expertise required, built to be intuitive and accessible for anyone.",
     ],
   },
   {
@@ -53,9 +53,9 @@ export const features = [
     logo: collaborative_workflow,
     title: "Collaborative workflow builder",
     descriptions: [
-      "Let Duri AI do the work and you only give directions to Duri.",
-      "Integrated spreadsheets, documents, and other tools to help you build workflows.",
-      "Brings data from different sources and tools to help you build workflows.",
+      "Let Duri AI handle the execution—simply direct it, and it does the rest.",
+      "Built-in spreadsheets, documents, and tools empower you to design and run end-to-end workflows.",
+      "Seamlessly pulls and unifies data from multiple sources and tools to power your workflows.",
     ],
   },
   {
@@ -63,9 +63,9 @@ export const features = [
     logo: web_scrape,
     title: "Web scraping",
     descriptions: [
-      "Duri AI can scrape the internet and extract data for you.",
-      "Seamlessly extract data and convert it into a structured format.",
-      "Watch real-time as Duri AI scrapes the website and extract data for you.",
+      "Duri AI browses the web in real time, autonomously scraping and extracting the data you need.",
+      "It seamlessly transforms unstructured information into clean, structured outputs you can use instantly.",
+      "Watch Duri AI scrape the web in real time through a live browser view so you can track progress step by step.",
     ],
   },
 ];
