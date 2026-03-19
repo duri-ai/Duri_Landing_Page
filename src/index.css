@@ -19,6 +19,7 @@
 
 @theme inline {
   --color-brand: var(--brand);
+  --color-brand-variant: var(--brand-variant);
   --color-on-brand: var(--on-brand);
   --color-background: var(--background);
   --color-on-background-secondary: var(--on-background-secondary);
@@ -51,6 +52,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --brand: #00a86b;
+  --brand-variant: #009760;
   --on-brand: #fff;
   --background: #fff;
   --on-background: #003220;

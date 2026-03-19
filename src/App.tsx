@@ -156,13 +156,13 @@ function App() {
       </section>
 
       {/* Fourth Section - Footer Section */}
-      <footer className="w-full px-[14px] lg:px-[48px] bg-[#009760]">
+      <footer className="w-full px-[14px] lg:px-[48px] bg-brand-variant min-w-xs">
 
         <div className="border-x border-divider">
           <div className="flex flex-col items-center">
             <div className="border-divider border-b-0 px-[24px] pt-[46px] pb-[30px] text-on-brand max-w-sm sm:max-w-md md:max-w-lg">
               <h3 className="font-bold mb-[8px] text-[14px]">Request a Demo</h3>
-              <p className="text-[14px]">Enter your email and we’ll reach out shortly to schedule a personalized demo tailored to your business.</p>
+              <p className="text-[14px]">Enter your email below and we’ll reach out shortly to schedule a personalized demo tailored to your business.</p>
             </div>
 
             <div className="px-[24px] pb-[46px] sm:pt-0 text-on-brand w-full max-w-sm sm:max-w-md md:max-w-lg">
@@ -170,12 +170,12 @@ function App() {
                 <label htmlFor="input-group-1" className="block mb-2.5 text-sm font-medium">Your Email*</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" /></svg>
+                    <svg className="w-4 h-4 text-on-background" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z" /></svg>
                   </div>
-                  <input type="text" id="input-group-1" className="block w-full ps-9 pe-3 py-2.5 bg-neutral-secondary-medium border border-default-medium border-divider text-heading text-sm rounded-base shadow-xs placeholder:text-body placeholder:text-divider" placeholder="your_business@gmail.com" />
+                  <input type="text" id="input-group-1" className="block w-full ps-9 pe-3 py-2.5 bg-background border border-default-medium border-divider text-heading text-sm rounded-base shadow-xs placeholder:text-body placeholder:text-on-background-secondary" placeholder="your_business@gmail.com" />
                 </div>
 
-                <button type="submit" className="text-on-background bg-background box-border border border-transparent hover:bg-brand-strong shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 w-full mt-[8px]">Submit</button>
+                <button type="submit" className="text-on-brand bg-on-background box-border border border-transparent hover:bg-brand-strong shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 w-full mt-[8px]">Submit</button>
               </form>
             </div>
           </div>
