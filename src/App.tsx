@@ -1,9 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ChevronRightIcon, PartyPopperIcon, PlayIcon } from "lucide-react";
 import { thirdPartyLogos, features } from "./utils";
 
 function App() {
   const [activeFeature, setActiveFeature] = useState<number>(0);
+  const featuresSectionRef = useRef<HTMLElement | null>(null);
+  const footerRef = useRef<HTMLElement | null>(null);
+
+  const scrollToFeatures = () => {
+    featuresSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const scrollToFooter = () => {
+    footerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <>
@@ -19,8 +35,13 @@ function App() {
             {/* TODO: Update href */}
             <a href="/" className="text-on-background font-normal text-sm hover:opacity-70">Log in</a>
 
-            {/* TODO: Update href */}
-            <a href="/">
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToFooter();
+              }}
+            >
               <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border-2 border-transparent hover:border-brand font-normal leading-5 rounded-xs text-sm px-3 py-[5px] md:px-5 md:py-2.5 transition-colors duration-500 cursor-pointer">Request a Demo</button>
             </a>
           </div>
@@ -35,8 +56,11 @@ function App() {
         <div className="absolute inset-0 bg-[linear-gradient(0deg,#fff,transparent)] z-10" />
 
         <div className="w-full py-22.5 flex flex-col justify-center items-center text-center relative z-15">
-          {/* TODO: Add onClick handler */}
-          <div className="mb-14 border border-divider rounded-xs py-3 px-4 bg-background flex justify-center items-center gap-2 text-on-background hover:bg-on-background hover:text-on-brand hover:cursor-pointer w-full max-w-2xs sm:max-w-xs md:max-w-md lg:w-auto lg:max-w-none">
+          <div className="mb-14 border border-divider rounded-xs py-3 px-4 bg-background flex justify-center items-center gap-2 text-on-background hover:bg-on-background hover:text-on-brand hover:cursor-pointer w-full max-w-2xs sm:max-w-xs md:max-w-md lg:w-auto lg:max-w-none"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToFeatures();
+            }}>
             <PartyPopperIcon className="w-5 h-5 transition-colors duration-200" />
             <span className="text-xl transition-colors duration-200 hidden lg:inline">Introducing Duri: AI business operator with a collaborative workspace</span>
             <span className="text-xl transition-colors duration-200 inline lg:hidden">Introducing Duri AI</span>
@@ -47,8 +71,13 @@ function App() {
           <p className="mt-3.75 text-lg sm:text-xl md:text-2xl text-on-background-secondary max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-2xl xl:max-w-none">An AI business operator for small and medium businesses.</p>
           <div className="mt-10 flex flex-col items-center lg:flex-row lg:items-start gap-6">
             <div>
-              {/* TODO: Update href */}
-              <a href="/">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToFeatures();
+                }}
+              >
                 <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
               </a>
               <p className="mt-3 text-sm text-on-background-secondary">No credit card required.</p>
@@ -85,7 +114,7 @@ function App() {
       <div className="w-full h-6" />
 
       {/* Third Section - Features Section */}
-      <section className="w-full mt-[26px] pb-[63px] md:pb-[100px] relative min-w-xs">
+      <section ref={featuresSectionRef} className="w-full mt-[26px] pb-[63px] md:pb-[100px] relative min-w-xs">
         <div className="absolute inset-0 bg-[url('/background/grid.svg')] bg-size-[160px_92px] bg-position-[80px_0px] z-5" />
 
         <div className="absolute inset-0 top-0 bg-[linear-gradient(180deg,#fff,transparent)] z-10 h-1/2" />
@@ -137,7 +166,10 @@ function App() {
                     )
                   })}
                 </ul>
-                <a className="group mt-[32px] min-w-4xs max-w-2xs hover:cursor-pointer relative">
+                <a className="group mt-[32px] min-w-4xs max-w-2xs hover:cursor-pointer relative" onClick={(e) => {
+                  e.preventDefault();
+                  scrollToFooter();
+                }}>
                   <div className="relative box-border border border-on-background py-[16px] px-[24px] z-2 bg-background hover:translate-x-[10px] hover:translate-y-[-10px] transition-transform duration-300">
                     <span className="text-[14px]">Request a Demo</span>
                     <div className="flex justify-end items-center">
@@ -156,7 +188,7 @@ function App() {
       </section>
 
       {/* Fourth Section - Footer Section */}
-      <footer className="w-full px-[14px] lg:px-[48px] bg-brand-variant min-w-xs">
+      <footer ref={footerRef} className="w-full px-[14px] lg:px-[48px] bg-brand-variant min-w-xs">
 
         <div className="border-x border-divider">
           <div className="flex flex-col items-center">
