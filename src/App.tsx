@@ -75,7 +75,7 @@ function App() {
                 href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToFeatures();
+                  scrollToFooter();
                 }}
               >
                 <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
