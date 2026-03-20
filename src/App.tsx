@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import { ChevronRightIcon, PartyPopperIcon, PlayIcon } from "lucide-react";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import { thirdPartyLogos, features } from "./utils/marketingContent";
 import { supabase } from "./utils/supabase";
+import Auth from "./pages/Auth.tsx";
 
-function App() {
+function LandingPage() {
   const [activeFeature, setActiveFeature] = useState<number>(0);
   const [email, setEmail] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -57,7 +59,7 @@ function App() {
 
           <div className="inline-flex items-center gap-3 md:py-4">
             {/* TODO: Update href */}
-            <a href="/" className="text-on-background font-normal text-sm hover:opacity-70">Log in</a>
+            <Link to="/auth" className="text-on-background font-normal text-sm hover:opacity-70">Log in</Link>
 
             <a
               href="/"
@@ -107,9 +109,12 @@ function App() {
               <p className="mt-3 text-sm text-on-background-secondary">No credit card required.</p>
             </div>
             {/* TODO: Update href */}
-            <a href="/">
-              <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Log in</button>
-            </a>
+            <Link
+              to="/auth"
+              className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0"
+            >
+              Log in
+            </Link>
           </div>
         </div>
       </section>
@@ -257,6 +262,16 @@ function App() {
       </footer>
     </>
   )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }
 
 export default App
