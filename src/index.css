@@ -28,6 +28,7 @@
   );
   --color-on-background: var(--on-background);
   --color-divider: var(--divider);
+  --color-highlight: var(--highlight);
 }
 
 :root {
@@ -59,6 +60,7 @@
   --on-background-secondary: #4d7063;
   --on-background-secondary-variant: #cfcdcb;
   --divider: #e6e4e2;
+  --highlight: #8f00ff;
 }
 
 @media (min-width: 640px) {
