@@ -10,13 +10,20 @@ function Auth() {
                         <section className="w-full rounded-sm bg-background">
                             <h1 className="mb-4 text-xl font-medium text-on-background">Welcome!</h1>
                             <form className="flex flex-col gap-y-6" name="login">
-                                <label htmlFor="email" className="">
-                                    <div className="mb-1 flex justify-between text-xs text-on-background-secondary">Email
-                                        {/* <a className="text-xs" href="/reset-password">Forgot password?</a> */}
-                                    </div>
-                                    <input className="border-on-background-secondary bg-background placeholder:text-on-background-secondary flex h-10 w-full rounded-sm border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50" data-testid="sign-in-email-input" type="email" name="email" placeholder="your_business@gmail.com" />
-                                </label>
-                                <button className="gap-2 cursor-pointer items-center justify-center whitespace-nowrap text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-80 flex rounded-sm border border-brand bg-brand text-on-brand hover:bg-brand-variant h-10 px-4 py-2" type="submit" data-testid="sign-in-email-submit-button">Continue</button>
+                                <div className="flex flex-col gap-y-3">
+                                    <label htmlFor="email" className="">
+                                        <div className="mb-1 flex justify-between text-xs text-on-background-secondary">Email
+                                            {/* <a className="text-xs" href="/reset-password">Forgot password?</a> */}
+                                        </div>
+                                        <input className="border-on-background-secondary bg-background placeholder:text-on-background-secondary flex h-10 w-full rounded-sm border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50" data-testid="sign-in-email-input" type="email" name="email" placeholder="your_business@gmail.com" />
+                                    </label>
+                                    <label htmlFor="password" className="">
+                                        <div className="mb-1 flex justify-between text-xs text-on-background-secondary">Password
+                                        </div>
+                                        <input className="border-on-background-secondary bg-background placeholder:text-on-background-secondary flex h-10 w-full rounded-sm border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50" data-testid="sign-in-email-input" type="password" name="password" placeholder="********" />
+                                    </label>
+                                </div>
+                                <button className="gap-2 cursor-pointer items-center justify-center whitespace-nowrap text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-80 flex rounded-sm border border-brand bg-brand text-on-brand hover:bg-brand-variant h-10 px-4 py-2" type="submit" data-testid="sign-in-email-submit-button">Sign in</button>
                                 <div className="text-center text-xs">Don't have an account?
                                     <a className="text-highlight" href="/">{" "}Request a Demo</a>
                                 </div>
