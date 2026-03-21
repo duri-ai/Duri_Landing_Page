@@ -21,38 +21,28 @@ function Auth() {
                                     <a className="text-highlight" href="/">{" "}Request a Demo</a>
                                 </div>
                             </form>
-                            <footer className="mt-4 max-w-[600px] text-center text-xs text-on-background-secondary">By continuing, you agree to Duri’s
+                            <footer className="mt-4 max-w-[600px] text-center text-xs text-on-background-secondary">By continuing, you agree to Duri’s{" "}
                                 {/* TODO: Update href */}
-                                <a target="_blank" className="underline" href="#">{" "}Terms of Service</a> with
+                                <a target="_blank" className="underline" href="#">Terms of Service</a> with {" "}
                                 {/* TODO: Update href */}
-                                <a target="_blank" className="underline" href="#">{" "}Privacy Policy</a> and to receive periodic emails with updates.
+                                <a target="_blank" className="underline" href="#">Privacy Policy</a> and to receive periodic emails with updates.
                             </footer>
                         </section>
                     </div>
                 </div>
             </div>
             <div className="z-0 hidden flex-col overflow-hidden md:flex">
-                <div className="relative flex flex-1 bg-cover bg-center" style={{ backgroundImage: "url(/get-started-assets/grid-background.svg)" }}>
-                    <div className="flex flex-1 flex-col items-start justify-end px-8 py-12 lg:px-12" style={{ maxWidth: "720px" }}>
+                <div className="relative flex flex-1 bg-cover bg-center bg-[url('/background/wave.jpg')]">
+                    <div className="flex flex-1 flex-col items-start justify-end px-8 py-12 lg:px-12 max-w-[720px]">
                         <div className="flex flex-col gap-8 pb-10">
                             <div>
-                                <h2 className="text-left text-xl font-medium text-gray-900">Browserbase is trusted at scale.</h2>
-                                <p className="mt-2 text-left text-sm text-gray-500">All manual tasks on the web can now be automated with AI.</p>
-                            </div>
-                            <div>
-                                <p className="mb-3 text-left text-sm text-gray-500">Trusted by teams at</p>
-                                <div className="flex max-w-[280px] flex-wrap items-center justify-start gap-x-4 gap-y-3 lg:max-w-none lg:gap-x-6">
-                                    <img src="/get-started-assets/logos/microsoft.svg" alt="Microsoft" className="h-4 w-auto max-w-[80px] opacity-70 grayscale transition-opacity hover:opacity-100 lg:h-5 lg:max-w-[100px] " />
-                                    <img src="/get-started-assets/logos/vercel.svg" alt="Vercel" className="h-4 w-auto max-w-[80px] opacity-70 grayscale transition-opacity hover:opacity-100 lg:h-5 lg:max-w-[100px] scale-[0.8]" />
-                                    <img src="/get-started-assets/logos/perplexity.svg" alt="Perplexity" className="h-4 w-auto max-w-[80px] opacity-70 grayscale transition-opacity hover:opacity-100 lg:h-5 lg:max-w-[100px] " />
-                                    <img src="/get-started-assets/logos/vanta.svg" alt="Vanta" className="h-4 w-auto max-w-[80px] opacity-70 grayscale transition-opacity hover:opacity-100 lg:h-5 lg:max-w-[100px] " />
-                                    <img src="/get-started-assets/logos/commure.svg" alt="Commure" className="h-4 w-auto max-w-[80px] opacity-70 grayscale transition-opacity hover:opacity-100 lg:h-5 lg:max-w-[100px] " />
-                                </div>
+                                <h2 className="text-left text-xl font-medium text-on-background">Duri will save you time.</h2>
+                                <p className="mt-2 text-left text-sm text-on-background-secondary">Focus on what matters the most, let Duri handle the rest.</p>
                             </div>
                         </div>
                     </div>
-                    <div className="absolute top-1/2 right-0 left-0 flex -translate-y-1/2 justify-start px-8 lg:px-12" style={{ maxWidth: "720px", marginTop: "-100px" }}>
-                        <img src="/get-started-assets/browserbase-diagram.svg" alt="Browserbase automation illustration" className="w-full max-w-2xl" />
+                    <div className="absolute top-1/2 right-0 left-0 flex -translate-y-1/2 justify-start px-8 lg:px-12 max-w-[720px] mt-[-100px]">
+                        <img src="/logos/d.svg" alt="Duri Initial Logo" className="w-full max-w-[100px]" />
                     </div>
                 </div>
             </div>
