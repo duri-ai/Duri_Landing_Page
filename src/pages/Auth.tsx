@@ -39,7 +39,7 @@ function Auth() {
                 </div>
             </div>
             <div className="z-0 hidden flex-col overflow-hidden md:flex">
-                <div className="relative flex flex-1 bg-cover bg-center bg-[url('/Duri_Landing_Page/background/wave.jpg')]">
+                <div className="relative flex flex-1 bg-cover bg-center bg-[url('/background/wave.jpg')]">
                     <div className="flex flex-1 flex-col items-start justify-end px-8 py-12 lg:px-12 max-w-[720px]">
                         <div className="flex flex-col gap-8 pb-10">
                             <div>

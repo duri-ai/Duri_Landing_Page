@@ -4,6 +4,6 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/Duri_Landing_Page/",
+  base: "/",
   plugins: [react(), tailwindcss()],
 });
