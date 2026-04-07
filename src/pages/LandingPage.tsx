@@ -95,25 +95,16 @@ function LandingPage() {
                     <h1 className="mt-5 text-4xl sm:text-4xl md:text-5xl lg:text-7xl text-on-background max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-xl xl:max-w-none">We automate back-office tasks.</h1>
                     <p className="mt-3.75 text-lg sm:text-xl md:text-2xl text-on-background-secondary max-w-2xs sm:max-w-xs md:max-w-md lg:max-w-2xl xl:max-w-none">An AI business operator for small and medium businesses.</p>
                     <div className="mt-10 flex flex-col items-center lg:flex-row lg:items-start gap-6">
-                        <div>
-                            <a
-                                href="/"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollToFooter();
-                                }}
-                            >
-                                <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Try for free</button>
-                            </a>
-                            <p className="mt-3 text-sm text-on-background-secondary">No credit card required.</p>
-                        </div>
-                        {/* TODO: Update href */}
-                        <Link
-                            to="/auth"
-                            className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0"
+                        <a
+                            href="https://duristorage.blob.core.windows.net/releases/desktop/latest/Duri-latest-mac.zip"
                         >
-                            Log in
-                        </Link>
+                            <button type="button" className="text-on-brand bg-brand hover:bg-transparent hover:text-brand box-border border border-transparent hover:border-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Download for Mac</button>
+                        </a>
+                        <a
+                            href="https://duristorage.blob.core.windows.net/releases/desktop/latest/Duri-latest-win.exe"
+                        >
+                            <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Download for Windows</button>
+                        </a>
                     </div>
                 </div>
             </section>
