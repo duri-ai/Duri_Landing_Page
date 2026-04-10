@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 import { ChevronRightIcon, PartyPopperIcon, PlayIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 import { thirdPartyLogos, features } from "../utils/marketingContent";
-import { supabase } from "../utils/supabase";
 
 function LandingPage() {
     const [activeFeature, setActiveFeature] = useState<number>(0);
@@ -25,25 +23,11 @@ function LandingPage() {
         });
     };
 
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (!email) return;
-        const formattedEmail = email.trim().toLowerCase();
-
-        const { data, error } = await supabase
-            .from('demo_requests')
-            .insert([
-                { email: formattedEmail },
-            ])
-            .select()
-
-        if (error) {
-            console.error(error);
-        } else {
-            console.log(data);
-            setIsSubmitted(true);
-        }
+        setIsSubmitted(true);
     };
 
     return (
@@ -57,9 +41,6 @@ function LandingPage() {
                     </a >
 
                     <div className="inline-flex items-center gap-3 md:py-4">
-                        {/* TODO: Update href */}
-                        <Link to="/auth" className="text-on-background font-normal text-sm hover:opacity-70">Log in</Link>
-
                         <a
                             href="/"
                             onClick={(e) => {
@@ -246,6 +227,11 @@ function LandingPage() {
 
                     <div className="px-[39px] pt-[30px] md:pt-[30px] flex justify-center border-t border-divider">
                         <img src={`${import.meta.env.BASE_URL}logos/duri_white.svg`} className="w-auto h-full" alt="Duri Text Logo" />
+                    </div>
+
+                    <div className="flex justify-center gap-6 py-4 border-t border-divider">
+                        <a href="/privacy" className="text-on-brand text-sm hover:opacity-70">Privacy Policy</a>
+                        <a href="/eula" className="text-on-brand text-sm hover:opacity-70">EULA</a>
                     </div>
                 </div>
 
