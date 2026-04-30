@@ -8,34 +8,42 @@ export const thirdPartyLogos = [
   {
     name: "Shopify",
     logo: `${base}logos/third_party/shopify.svg`,
+    implemented: true,
   },
   {
     name: "Quickbooks",
     logo: `${base}logos/third_party/quickbooks.svg`,
+    implemented: true,
   },
   {
     name: "Gmail",
     logo: `${base}logos/third_party/gmail.svg`,
-  },
-  {
-    name: "Slack",
-    logo: `${base}logos/third_party/slack.svg`,
-  },
-  {
-    name: "Notion",
-    logo: `${base}logos/third_party/notion.svg`,
+    implemented: true,
   },
   {
     name: "Excel",
     logo: `${base}logos/third_party/excel.svg`,
+    implemented: true,
+  },
+  {
+    name: "Slack",
+    logo: `${base}logos/third_party/slack.svg`,
+    implemented: false,
+  },
+  {
+    name: "Notion",
+    logo: `${base}logos/third_party/notion.svg`,
+    implemented: false,
   },
   {
     name: "Mailchimp",
     logo: `${base}logos/third_party/mailchimp.svg`,
+    implemented: false,
   },
   {
     name: "Jira",
     logo: `${base}logos/third_party/jira.svg`,
+    implemented: false,
   },
 ];
 

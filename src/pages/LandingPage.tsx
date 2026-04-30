@@ -84,7 +84,7 @@ function LandingPage() {
                         <a
                             href="https://duristorage.blob.core.windows.net/releases/desktop/latest/Duri-latest-win.exe"
                         >
-                            <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Download for Windows</button>
+                            <button type="button" className="text-on-background bg-transparent box-border border border-on-background hover:bg-on-background hover:text-on-brand font-normal leading-5 rounded-xs text-xl sm:text-2xl px-8 py-6 transition-colors duration-500 cursor-pointer min-w-2xs sm:min-w-xs md:min-w-md lg:min-w-0">Download for Windows</button>
                         </a>
                     </div>
                 </div>
@@ -101,8 +101,11 @@ function LandingPage() {
                     {
                         thirdPartyLogos.map((party) => {
                             return (
-                                <div className="bg-transparent box-border border border-on-background w-[140px] min-[421px]:w-[150px] md:w-[165px] h-[100px] flex justify-center items-center" key={party.name}>
+                                <div className="bg-transparent box-border border border-on-background w-[140px] min-[421px]:w-[150px] md:w-[165px] h-[100px] flex justify-center items-center relative" key={party.name}>
                                     <img src={party.logo} alt={party.name} className="w-[120px]" />
+                                    {!party.implemented && (
+                                        <span className="w-full flex justify-center align-center absolute bottom-0 left-0 bg-[#FCF3E0] text-[#926425] text-xs font-bold px-2 py-1">IN DEVELOPMENT</span>
+                                    )}
                                 </div>
                             )
                         })
