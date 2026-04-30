@@ -225,13 +225,31 @@ function LandingPage() {
                         </div>
                     </div>
 
-                    <div className="px-[39px] pt-[30px] md:pt-[30px] flex justify-center border-t border-divider">
-                        <img src={`${import.meta.env.BASE_URL}logos/duri_white.svg`} className="w-auto h-full" alt="Duri Text Logo" />
-                    </div>
+                    <div className="border-t border-divider flex justify-center px-[24px] py-7">
+                        <div className="w-full max-w-sm sm:max-w-md md:max-w-lg flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between px-[24px]">
+                            <a href="/" className="inline-flex items-center gap-3 text-on-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-on-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-variant rounded-xs">
+                                <img
+                                    src={`${import.meta.env.BASE_URL}logos/duri_white.svg`}
+                                    className="h-5 w-auto opacity-95"
+                                    alt="Duri"
+                                />
+                            </a>
 
-                    <div className="flex justify-center gap-6 py-4 border-t border-divider">
-                        <a href="/privacy" className="text-on-brand text-sm hover:opacity-70">Privacy Policy</a>
-                        <a href="/eula" className="text-on-brand text-sm hover:opacity-70">EULA</a>
+                            <nav className="flex items-center gap-5 text-sm">
+                                <a
+                                    href="/privacy"
+                                    className="text-on-brand/90 hover:text-on-brand decoration-on-brand/30 underline-offset-4 hover:decoration-on-brand/70 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-on-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-variant rounded-xs"
+                                >
+                                    Privacy Policy
+                                </a>
+                                <a
+                                    href="/eula"
+                                    className="text-on-brand/90 hover:text-on-brand decoration-on-brand/30 underline-offset-4 hover:decoration-on-brand/70 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-on-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-brand-variant rounded-xs"
+                                >
+                                    EULA
+                                </a>
+                            </nav>
+                        </div>
                     </div>
                 </div>
 
