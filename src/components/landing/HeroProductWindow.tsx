@@ -148,20 +148,9 @@ export default function HeroProductWindow() {
                     <div className="flex flex-col">
                         {/* Header with title + chip */}
                         <header className="flex items-center justify-between border-b border-divider px-4 py-2.5 bg-background">
-                            <div className="flex items-center gap-2">
-                                <h3 className="text-[13.5px] text-on-background font-medium">
-                                    Order to invoice
-                                </h3>
-                                <span className="text-[10.5px] uppercase tracking-wider text-on-background-secondary border border-divider-strong px-1.5 py-0.5">
-                                    Standing task
-                                </span>
-                            </div>
-                            <div className="flex items-center gap-2 text-[11px] text-on-background-secondary">
-                                <span className="inline-flex items-center gap-1.5">
-                                    <span className="w-1.5 h-1.5 bg-brand rounded-full animate-pulse" />
-                                    Live
-                                </span>
-                            </div>
+                            <h3 className="text-[13.5px] text-on-background font-medium">
+                                Order to invoice
+                            </h3>
                         </header>
 
                         {/* Message stream */}
