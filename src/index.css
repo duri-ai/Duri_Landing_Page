@@ -20,14 +20,18 @@
 @theme inline {
   --color-brand: var(--brand);
   --color-brand-variant: var(--brand-variant);
+  --color-brand-soft: var(--brand-soft);
   --color-on-brand: var(--on-brand);
+  --color-on-brand-secondary: var(--on-brand-secondary);
   --color-background: var(--background);
+  --color-background-warm: var(--background-warm);
   --color-on-background-secondary: var(--on-background-secondary);
   --color-on-background-secondary-variant: var(
     --on-background-secondary-variant
   );
   --color-on-background: var(--on-background);
   --color-divider: var(--divider);
+  --color-divider-strong: var(--divider-strong);
   --color-highlight: var(--highlight);
 }
 
@@ -54,12 +58,16 @@
 
   --brand: #00a86b;
   --brand-variant: #009760;
+  --brand-soft: #e6f5ee;
   --on-brand: #fff;
+  --on-brand-secondary: #b8e0cc;
   --background: #fff;
+  --background-warm: #f7f5f1;
   --on-background: #003220;
   --on-background-secondary: #4d7063;
   --on-background-secondary-variant: #cfcdcb;
   --divider: #e6e4e2;
+  --divider-strong: #d3cfc8;
   --highlight: #8f00ff;
 }
 
@@ -111,5 +119,240 @@
       BlinkMacSystemFont,
       "Segoe UI",
       sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--brand);
+    color: var(--on-brand);
+  }
+}
+
+@layer utilities {
+  .duri-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--on-background-secondary);
+  }
+
+  .duri-monument {
+    font-size: clamp(2.75rem, 8.5vw, 7rem);
+    line-height: 0.96;
+    letter-spacing: -0.028em;
+    font-weight: 500;
+    color: var(--on-background);
+  }
+
+  .duri-section-title {
+    font-size: clamp(2rem, 4.6vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    font-weight: 500;
+    color: var(--on-background);
+  }
+
+  .duri-section-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+    line-height: 1.45;
+    color: var(--on-background-secondary);
+    max-width: 36rem;
+  }
+
+  .duri-grid-bg {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklch, var(--on-background) 7%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklch, var(--on-background) 7%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 88px 88px;
+  }
+
+  .duri-typing-caret::after {
+    content: "";
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.05em;
+    background-color: var(--brand);
+    margin-left: 0.08em;
+    transform: translateY(0.18em);
+    animation: duri-caret-blink 1s steps(2, jump-none) infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .duri-typing-caret::after {
+      animation: none;
+    }
+  }
+
+  /* Long lede prose lock to readable measure. */
+  .duri-measure {
+    max-width: 38rem;
+  }
+}
+
+@keyframes duri-caret-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.duri-roulette {
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+  color: var(--brand);
+  white-space: nowrap;
+}
+
+.duri-roulette__sizer {
+  visibility: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  /* the sizer dictates the container's width AND its baseline; we hide
+     it visually but keep it in flow so the period sits correctly next
+     to the active word and surrounding "in plain" lines up */
+}
+
+.duri-roulette__word {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  animation: duri-roulette-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
+@keyframes duri-roulette-in {
+  from { opacity: 0; transform: translateY(55%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duri-roulette__word {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes duri-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.duri-fade-up {
+  animation: duri-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Step 1: browser-recording cursor path on a form. The cursor moves
+   between input rows and a submit button, evoking a real demo. */
+@keyframes duri-cursor-path {
+  0%   { top: 24%;  left: 14%; }
+  18%  { top: 24%;  left: 64%; }
+  35%  { top: 46%;  left: 64%; }
+  55%  { top: 46%;  left: 18%; }
+  72%  { top: 70%;  left: 70%; }
+  88%  { top: 70%;  left: 70%; }
+  100% { top: 24%;  left: 14%; }
+}
+
+.duri-cursor-path {
+  animation: duri-cursor-path 7.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+@keyframes duri-rec-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.duri-rec-pulse {
+  animation: duri-rec-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes duri-line-grow {
+  0%, 5% { transform: scaleX(0); opacity: 0.4; }
+  35%, 90% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(0); opacity: 0; }
+}
+
+.duri-line-grow {
+  transform-origin: left center;
+  animation: duri-line-grow 7.2s ease-in-out infinite;
+}
+
+/* Step 2: three messages staggered through one cycle, each peaking at a
+   different segment so the full sequence reads top-to-bottom. */
+@keyframes duri-msg-1 {
+  0%, 4% { opacity: 0; transform: translateY(6px); }
+  9%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes duri-msg-2 {
+  0%, 28% { opacity: 0; transform: translateY(6px); }
+  34%, 100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes duri-msg-3 {
+  0%, 58% { opacity: 0; transform: translateY(6px); }
+  64%, 96% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+.duri-msg-1 { animation: duri-msg-1 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.duri-msg-2 { animation: duri-msg-2 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.duri-msg-3 { animation: duri-msg-3 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+
+/* Step 3: highlight rotates through the three schedule rows. */
+@keyframes duri-sched-1 {
+  0%, 28%, 100% { background-color: var(--brand-soft); }
+  34%, 100% { background-color: transparent; }
+}
+@keyframes duri-sched-2 {
+  0%, 28% { background-color: transparent; }
+  34%, 60% { background-color: var(--brand-soft); }
+  66%, 100% { background-color: transparent; }
+}
+@keyframes duri-sched-3 {
+  0%, 60% { background-color: transparent; }
+  66%, 96% { background-color: var(--brand-soft); }
+  100% { background-color: transparent; }
+}
+
+.duri-sched-1 { animation: duri-sched-1 6.4s ease-in-out infinite; }
+.duri-sched-2 { animation: duri-sched-2 6.4s ease-in-out infinite; }
+.duri-sched-3 { animation: duri-sched-3 6.4s ease-in-out infinite; }
+
+@keyframes duri-logo-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.duri-logo-marquee {
+  animation: duri-logo-marquee 32s linear infinite;
+  width: max-content;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duri-cursor-path,
+  .duri-rec-pulse,
+  .duri-line-grow,
+  .duri-msg-1,
+  .duri-msg-2,
+  .duri-msg-3,
+  .duri-sched-1,
+  .duri-sched-2,
+  .duri-sched-3,
+  .duri-logo-marquee {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .duri-fade-up {
+    animation: none;
   }
 }

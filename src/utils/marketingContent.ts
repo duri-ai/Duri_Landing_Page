@@ -1,81 +1,59 @@
 const base = import.meta.env.BASE_URL;
 
-import no_code from "/misc_images/no_code.svg";
-import collaborative_workflow from "/misc_images/collab.svg";
-import web_scrape from "/misc_images/web_scrape.svg";
+export type Integration = {
+    name: string;
+    logo: string;
+};
 
-export const thirdPartyLogos = [
-  {
-    name: "Shopify",
-    logo: `${base}logos/third_party/shopify.svg`,
-    implemented: true,
-  },
-  {
-    name: "Quickbooks",
-    logo: `${base}logos/third_party/quickbooks.svg`,
-    implemented: true,
-  },
-  {
-    name: "Gmail",
-    logo: `${base}logos/third_party/gmail.svg`,
-    implemented: true,
-  },
-  {
-    name: "Excel",
-    logo: `${base}logos/third_party/excel.svg`,
-    implemented: true,
-  },
-  {
-    name: "Slack",
-    logo: `${base}logos/third_party/slack.svg`,
-    implemented: false,
-  },
-  {
-    name: "Notion",
-    logo: `${base}logos/third_party/notion.svg`,
-    implemented: false,
-  },
-  {
-    name: "Mailchimp",
-    logo: `${base}logos/third_party/mailchimp.svg`,
-    implemented: false,
-  },
-  {
-    name: "Jira",
-    logo: `${base}logos/third_party/jira.svg`,
-    implemented: false,
-  },
+export const integrations: Integration[] = [
+    { name: "Shopify", logo: `${base}logos/third_party/shopify.svg` },
+    { name: "QuickBooks", logo: `${base}logos/third_party/quickbooks.svg` },
+    { name: "Gmail", logo: `${base}logos/third_party/gmail.svg` },
+    { name: "Slack", logo: `${base}logos/third_party/slack.png` },
+    { name: "Notion", logo: `${base}logos/third_party/notion.svg` },
+    { name: "Airtable", logo: `${base}logos/third_party/airtable.svg` },
+    { name: "Outlook", logo: `${base}logos/third_party/outlook.svg` },
+    { name: "Excel", logo: `${base}logos/third_party/excel.svg` },
 ];
 
-export const features = [
-  {
-    id: 0,
-    logo: no_code,
-    title: "No code AI agents",
-    descriptions: [
-      "Duri is a no-code AI agent designed to automate and scale your business operations.",
-      "Simply describe what you need in natural language and Duri translates it into fully executed workflows.",
-      "No technical expertise required, built to be intuitive and accessible for anyone.",
-    ],
-  },
-  {
-    id: 1,
-    logo: collaborative_workflow,
-    title: "Collaborative workflow builder",
-    descriptions: [
-      "Let Duri AI handle the execution—simply direct it, and it does the rest.",
-      "Built-in spreadsheets, documents, and tools empower you to design and run end-to-end workflows.",
-      "Seamlessly pulls and unifies data from multiple sources and tools to power your workflows.",
-    ],
-  },
-  {
-    id: 2,
-    logo: web_scrape,
-    title: "Web scraping",
-    descriptions: [
-      "Duri AI browses the web in real time, autonomously scraping and extracting the data you need.",
-      "It seamlessly transforms unstructured information into clean, structured outputs you can use instantly.",
-      "Watch Duri AI scrape the web in real time through a live browser view so you can track progress step by step.",
-    ],
-  },
+export type HowItWorksAct = {
+    index: string;
+    title: string;
+    body: string;
+};
+
+export const howItWorks: HowItWorksAct[] = [
+    {
+        index: "01",
+        title: "Learns from you",
+        body: "Show it once. Type the steps, drop a doc, or record yourself doing the work. It picks up the shape and remembers.",
+    },
+    {
+        index: "02",
+        title: "Executes",
+        body: "It opens what it needs, asks before it guesses, and finishes the work on your behalf.",
+    },
+    {
+        index: "03",
+        title: "Then runs on a schedule",
+        body: "Daily, weekly, on every order. Hand it off. The workspace keeps the rhythm.",
+    },
+];
+
+export const realityPoints: { index: string; label: string; line: string }[] = [
+    {
+        index: "01",
+        label: "Manual, every day",
+        line: "Tabs and spreadsheets. The team types the same numbers across, day after day, and something always slips at month-end.",
+    },
+    {
+        index: "02",
+        label: "Drag, drop, pray",
+        line: "No-code tools wired together once, in front of one person. Now nobody can read them, and they break the week a vendor shifts a field.",
+    },
+    {
+        index: "03",
+        label: "Hire or contract",
+        line: "Bring in a developer or an agency, write the spec, wait, pay. The integration ships six weeks late and only fits one workflow.",
+    },
 ];
