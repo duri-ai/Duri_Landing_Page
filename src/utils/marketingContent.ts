@@ -49,7 +49,7 @@ export const realityPoints: { index: string; label: string; line: string }[] = [
     {
         index: "02",
         label: "Drag, drop, pray",
-        line: "No-code tools wired together once, in front of one person. Now nobody can read them, and they break the week a vendor shifts a field.",
+        line: "No-code automation tools wired together once, in front of one person. Now nobody can read them, and they break the week a vendor shifts a field.",
     },
     {
         index: "03",
