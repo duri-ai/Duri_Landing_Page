@@ -1,12 +1,13 @@
 import { useState } from "react";
 import {
+    BoxIcon,
     CheckCircle2Icon,
     CircleDotIcon,
     FileSpreadsheetIcon,
     FileTextIcon,
     GlobeIcon,
     MousePointer2Icon,
-    PauseIcon,
+    SearchIcon,
 } from "lucide-react";
 
 type Lane = "code" | "browser" | "report";
@@ -217,27 +218,68 @@ function BrowserVisual() {
                         portal.vendor.example / orders / 4823
                     </span>
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-on-background border border-divider-strong px-1.5 py-0.5 bg-background">
-                    <CircleDotIcon className="w-2.5 h-2.5 text-brand animate-pulse" />
-                    Driving
-                </span>
             </div>
 
-            <div className="grid grid-cols-[140px_1fr] min-h-[240px]">
-                <aside className="border-r border-divider bg-background-warm/60 px-3 py-3 hidden sm:block">
-                    <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-2">
-                        Orders
+            <div className="grid grid-cols-[160px_1fr] min-h-[260px]">
+                <aside className="border-r border-divider bg-background-warm/60 hidden sm:flex sm:flex-col">
+                    {/* Faux SaaS brand header */}
+                    <div className="flex items-center gap-2 px-3 py-2.5 border-b border-divider bg-background">
+                        <span
+                            className="inline-flex items-center justify-center w-6 h-6 bg-on-background text-on-brand rounded-xs"
+                            aria-hidden
+                        >
+                            <BoxIcon className="w-3.5 h-3.5" />
+                        </span>
+                        <span className="text-[12px] text-on-background font-semibold">
+                            Vendor Portal
+                        </span>
                     </div>
-                    <ul className="space-y-1.5 text-[11px] text-on-background-secondary">
-                        {["All", "Unfulfilled", "Unpaid", "Open", "Closed"].map((label, i) => (
-                            <li
-                                key={label}
-                                className={i === 1 ? "text-on-background font-medium" : ""}
-                            >
-                                {label}
-                            </li>
-                        ))}
-                    </ul>
+
+                    {/* Faux search */}
+                    <div className="px-3 py-2 border-b border-divider">
+                        <div className="flex items-center gap-1.5 border border-divider-strong rounded-xs bg-background px-2 py-1">
+                            <SearchIcon className="w-3 h-3 text-on-background-secondary" />
+                            <span className="text-[10px] text-on-background-secondary">Search</span>
+                        </div>
+                    </div>
+
+                    {/* Section: Orders */}
+                    <nav className="px-3 pt-2.5 pb-2">
+                        <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5">
+                            Orders
+                        </div>
+                        <ul className="space-y-0.5 text-[11px]">
+                            {[
+                                { label: "All", active: false },
+                                { label: "Unfulfilled", active: true },
+                                { label: "Unpaid", active: false },
+                                { label: "Open", active: false },
+                                { label: "Closed", active: false },
+                            ].map((item) => (
+                                <li
+                                    key={item.label}
+                                    className={`px-1.5 py-1 rounded-xs ${
+                                        item.active
+                                            ? "bg-divider/70 text-on-background font-medium"
+                                            : "text-on-background-secondary"
+                                    }`}
+                                >
+                                    {item.label}
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    {/* Section: Catalog */}
+                    <nav className="px-3 pt-1 pb-3 border-t border-divider mt-auto">
+                        <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5 mt-2">
+                            Catalog
+                        </div>
+                        <ul className="space-y-0.5 text-[11px] text-on-background-secondary">
+                            <li className="px-1.5 py-1">Products</li>
+                            <li className="px-1.5 py-1">Inventory</li>
+                        </ul>
+                    </nav>
                 </aside>
 
                 <div className="px-4 py-3 relative">
@@ -281,14 +323,6 @@ function BrowserVisual() {
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="flex items-center justify-between border-t border-divider bg-background-warm px-3 py-2 text-[11px] text-on-background-secondary">
-                <span className="uppercase tracking-wider">Step 4 of 7</span>
-                <span className="inline-flex items-center gap-1.5 border border-on-background rounded-xs px-2 py-0.5 text-on-background bg-background">
-                    <PauseIcon className="w-3 h-3" />
-                    Pause
-                </span>
             </div>
         </div>
     );

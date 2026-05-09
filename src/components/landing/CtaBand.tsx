@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ArrowRightIcon, AppleIcon, CheckIcon, MonitorIcon } from "lucide-react";
+import { ArrowRightIcon, CheckIcon } from "lucide-react";
+
+const APPLE_LOGO = `${import.meta.env.BASE_URL}misc_images/apple.png`;
+const WINDOWS_LOGO = `${import.meta.env.BASE_URL}misc_images/windows.png`;
 
 type CtaBandProps = {
     refCallback: (el: HTMLElement | null) => void;
@@ -107,16 +110,26 @@ export default function CtaBand({ refCallback }: CtaBandProps) {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                 <a
                                     href={MAC_DOWNLOAD}
-                                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
+                                    className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
                                 >
-                                    <AppleIcon className="w-4 h-4" />
+                                    <img
+                                        src={APPLE_LOGO}
+                                        alt=""
+                                        aria-hidden
+                                        className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
+                                    />
                                     Download for Mac
                                 </a>
                                 <a
                                     href={WIN_DOWNLOAD}
-                                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
+                                    className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
                                 >
-                                    <MonitorIcon className="w-4 h-4" />
+                                    <img
+                                        src={WINDOWS_LOGO}
+                                        alt=""
+                                        aria-hidden
+                                        className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
+                                    />
                                     Download for Windows
                                 </a>
                             </div>

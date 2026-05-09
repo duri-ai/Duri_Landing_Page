@@ -4,6 +4,7 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
     LockIcon,
+    MessageCircleQuestionIcon,
     MoreHorizontalIcon,
     MousePointer2Icon,
     PlayIcon,
@@ -211,13 +212,18 @@ function ExecuteVisual() {
                     </div>
                 </div>
 
-                {/* User's response, threaded under the question */}
+                {/* User's response, mirrored from the desktop's
+                    InterruptUserResponseMessageBody: small icon header,
+                    then the answer line. */}
                 <div className="duri-respond flex justify-end">
-                    <div className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-2.5 py-1 text-[11.5px] bg-background-warm">
-                        <span className="text-[10px] uppercase tracking-wider text-on-background-secondary">
-                            You
-                        </span>
-                        <span className="text-on-background">Match by name</span>
+                    <div className="max-w-[80%] border border-divider-strong rounded-md bg-background px-3 py-2.5">
+                        <div className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-on-background-secondary">
+                            <MessageCircleQuestionIcon className="w-3 h-3" />
+                            You answered
+                        </div>
+                        <div className="mt-1 text-[12.5px] text-on-background">
+                            Match by name
+                        </div>
                     </div>
                 </div>
 
