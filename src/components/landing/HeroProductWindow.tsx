@@ -202,7 +202,7 @@ export default function HeroProductWindow() {
                                         </span>
                                         <span className="inline-flex items-center gap-1 text-[11.5px] text-on-background-secondary px-2 py-1 rounded-xs">
                                             <VideoIcon className="w-3 h-3" />
-                                            Record
+                                            Record a demo
                                         </span>
                                     </div>
                                     <span className="inline-flex items-center justify-center w-7 h-7 bg-on-background text-on-brand rounded-xs">

@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     BoxIcon,
-    CheckCircle2Icon,
     CircleDotIcon,
+    Code2Icon,
+    FileSpreadsheetIcon,
     FileTextIcon,
+    FileTypeIcon,
     GlobeIcon,
     MousePointer2Icon,
     SearchIcon,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 type Lane = "code" | "browser" | "report";
 
@@ -130,66 +133,150 @@ export default function Capabilities() {
     );
 }
 
-const base = import.meta.env.BASE_URL;
+type Op = {
+    summary: string;
+    code: string[];
+};
 
-/** Lane 1 — Code outcomes. We don't show the code itself; the workspace
- *  hides the program and surfaces what changed across systems instead. */
+const OPERATIONS: Op[] = [
+    {
+        summary: "Pull customer details from the CRM",
+        code: [
+            'customers = crm.fetch(active=True)',
+            'missing = customers.where(email=None)',
+            'missing.flag("needs_review")',
+        ],
+    },
+    {
+        summary: "Draft 12 invoices, $4,283 booked",
+        code: [
+            'orders = shopify.orders(today=True)',
+            'invoices = build_invoices(orders)',
+            'qbo.send_batch(invoices)',
+        ],
+    },
+    {
+        summary: "Reconcile 4 unmatched vendor bills",
+        code: [
+            'bills = vendor.bills(week="oct-21")',
+            'unmatched = bills.missing_in(books)',
+            'unmatched.match_by("vendor_id")',
+        ],
+    },
+    {
+        summary: "Sync 28 inventory deltas to the sheet",
+        code: [
+            'deltas = inv.compute_deltas(orders)',
+            'sheet.update("inventory", deltas)',
+        ],
+    },
+];
+
+const HOLD_AFTER_TYPING_MS = 700;
+
+/** Lane 1 — A live-feeling sandbox. The active row expands and types
+ *  out a small program; once finished, it collapses to a one-line
+ *  summary and the next row takes over. The point: the AI does the
+ *  coding, the user just watches outcomes pile up. */
 function CodeOutcomesVisual() {
-    const rows = [
-        {
-            logo: `${base}logos/third_party/quickbooks.svg`,
-            system: "QuickBooks",
-            label: "Created 12 invoices",
-            detail: "matched customer, line items, tax",
-        },
-        {
-            logo: `${base}logos/third_party/shopify.svg`,
-            system: "Shopify",
-            label: "Marked 12 orders fulfilled",
-            detail: "tracking numbers attached",
-        },
-        {
-            logo: `${base}logos/third_party/excel.svg`,
-            system: "Excel",
-            label: "Updated 28 SKUs",
-            detail: "inventory file synced",
-        },
-        {
-            logo: `${base}logos/third_party/gmail.svg`,
-            system: "Gmail",
-            label: "Sent 12 receipts",
-            detail: "delivered, no bounces",
-        },
-    ];
+    const [active, setActive] = useState(0);
+    const [typed, setTyped] = useState<string[]>([""]);
+    const advanceTimer = useRef<number | null>(null);
+
+    useEffect(() => {
+        const op = OPERATIONS[active];
+        let cancelled = false;
+        let lineIdx = 0;
+        let charIdx = 0;
+        const lines: string[] = [""];
+        setTyped([""]);
+
+        const tick = () => {
+            if (cancelled) return;
+            const fullLine = op.code[lineIdx];
+            if (charIdx < fullLine.length) {
+                charIdx += 1;
+                lines[lineIdx] = fullLine.slice(0, charIdx);
+                setTyped([...lines]);
+                advanceTimer.current = window.setTimeout(tick, 18 + Math.random() * 22);
+            } else if (lineIdx < op.code.length - 1) {
+                lineIdx += 1;
+                charIdx = 0;
+                lines.push("");
+                setTyped([...lines]);
+                advanceTimer.current = window.setTimeout(tick, 220);
+            } else {
+                advanceTimer.current = window.setTimeout(() => {
+                    if (cancelled) return;
+                    setActive((a) => (a + 1) % OPERATIONS.length);
+                }, HOLD_AFTER_TYPING_MS);
+            }
+        };
+
+        advanceTimer.current = window.setTimeout(tick, 280);
+        return () => {
+            cancelled = true;
+            if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
+        };
+    }, [active]);
+
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-divider bg-background-warm">
-                <CircleDotIcon className="w-3 h-3 text-brand animate-pulse" />
-                <span className="text-[10.5px] uppercase tracking-wider text-on-background-secondary">
-                    Done in the background
+            {/* Minimal sandbox header: terminal glyph + a quiet running dot */}
+            <div className="flex items-center gap-2 px-3.5 py-2 border-b border-divider bg-on-background text-on-brand">
+                <Code2Icon className="w-3.5 h-3.5" />
+                <span className="font-mono text-[10.5px] text-on-brand-secondary">sandbox</span>
+                <span className="ml-auto inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-on-brand-secondary">
+                    <CircleDotIcon className="w-2.5 h-2.5 text-brand animate-pulse" />
+                    running
                 </span>
             </div>
+
             <ul className="divide-y divide-divider">
-                {rows.map((r) => (
-                    <li
-                        key={r.label}
-                        className="flex items-center justify-between gap-3 px-4 py-3"
-                    >
-                        <div className="flex items-start gap-3 min-w-0">
-                            <CheckCircle2Icon className="w-4 h-4 mt-0.5 text-brand flex-none" />
-                            <div className="min-w-0">
-                                <div className="text-[13px] text-on-background truncate">{r.label}</div>
-                                <div className="text-[11.5px] text-on-background-secondary truncate">
-                                    {r.detail}
-                                </div>
+                {OPERATIONS.map((op, i) => {
+                    const state =
+                        i === active ? "active" : i < active ? "done" : "queued";
+                    return (
+                        <li key={op.summary} className="px-3.5 py-2.5">
+                            <div className="flex items-center gap-2.5">
+                                <Code2Icon
+                                    className={`w-3.5 h-3.5 flex-none ${
+                                        state === "queued"
+                                            ? "text-on-background-secondary opacity-50"
+                                            : "text-brand"
+                                    }`}
+                                    aria-hidden
+                                />
+                                <span
+                                    className={`text-[12.5px] truncate ${
+                                        state === "queued"
+                                            ? "text-on-background-secondary"
+                                            : "text-on-background"
+                                    }`}
+                                >
+                                    {op.summary}
+                                </span>
                             </div>
-                        </div>
-                        <div className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-1.5 py-0.5 bg-background flex-none">
-                            <img src={r.logo} alt="" aria-hidden className="w-3.5 h-3.5 object-contain" />
-                            <span className="text-[10.5px] text-on-background-secondary">{r.system}</span>
-                        </div>
-                    </li>
-                ))}
+
+                            {state === "active" && (
+                                <pre className="mt-2 ml-6 px-3 py-2 bg-on-background text-on-brand rounded-xs font-mono text-[10.5px] leading-[1.55] whitespace-pre overflow-x-auto">
+                                    {typed.map((line, j) => {
+                                        const isLast = j === typed.length - 1;
+                                        return (
+                                            <div key={j}>
+                                                <span className="text-on-brand-secondary">{">_ "}</span>
+                                                {line}
+                                                {isLast && (
+                                                    <span className="duri-typing-caret" aria-hidden />
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </pre>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
         </div>
     );
@@ -306,25 +393,22 @@ function BrowserVisual() {
     );
 }
 
-type FileTone = "emerald" | "rose" | "sky" | "amber";
-
-const FILE_TONE: Record<FileTone, string> = {
-    emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    rose: "bg-rose-50 text-rose-700 border-rose-200",
-    sky: "bg-sky-50 text-sky-700 border-sky-200",
-    amber: "bg-amber-50 text-amber-700 border-amber-200",
+const FILE_ICON: Record<string, LucideIcon> = {
+    xlsx: FileSpreadsheetIcon,
+    csv: FileSpreadsheetIcon,
+    pdf: FileTextIcon,
+    doc: FileTypeIcon,
+    docx: FileTypeIcon,
 };
 
-function FileChip({ name, ext, tone }: { name: string; ext: string; tone: FileTone }) {
+function FileChip({ name, ext }: { name: string; ext: string }) {
+    const Icon = FILE_ICON[ext] ?? FileTextIcon;
     return (
-        <span className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-1.5 py-1 bg-background">
-            <span
-                className={`inline-flex items-center justify-center text-[9px] font-mono font-semibold uppercase tracking-wider px-1 py-0.5 border ${FILE_TONE[tone]}`}
-                aria-hidden
-            >
-                {ext}
+        <span className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-2 py-1.5 bg-background">
+            <Icon className="w-3.5 h-3.5 text-on-background-secondary flex-none" aria-hidden />
+            <span className="text-[11px] text-on-background font-mono">
+                {name}.{ext}
             </span>
-            <span className="text-[11px] text-on-background font-mono">{name}.{ext}</span>
         </span>
     );
 }
@@ -338,13 +422,10 @@ function ReportVisual() {
         <div className="flex flex-col gap-3">
             {/* PDF document */}
             <div className="border border-on-background rounded-xs bg-background overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-2.5 border-b border-divider bg-background-warm">
-                    <div className="inline-flex items-center gap-2 text-[11px] text-on-background-secondary">
-                        <FileTextIcon className="w-3.5 h-3.5" />
-                        <span className="font-mono text-[10.5px]">october_close.pdf</span>
-                    </div>
-                    <span className="text-[10.5px] uppercase tracking-wider text-on-background-secondary">
-                        14 pages
+                <div className="flex items-center gap-2 px-4 py-2.5 border-b border-divider bg-background-warm">
+                    <FileTextIcon className="w-3.5 h-3.5 text-on-background-secondary" />
+                    <span className="font-mono text-[10.5px] text-on-background-secondary">
+                        october_close.pdf
                     </span>
                 </div>
                 <div className="px-5 py-5">
@@ -382,16 +463,8 @@ function ReportVisual() {
                         </div>
                     </div>
 
-                    {/* Faux body paragraphs */}
-                    <div className="mt-5 space-y-1.5">
-                        <div className="h-1 w-full bg-divider" />
-                        <div className="h-1 w-11/12 bg-divider" />
-                        <div className="h-1 w-10/12 bg-divider" />
-                        <div className="h-1 w-9/12 bg-divider" />
-                    </div>
-
                     {/* Mini bar chart with axis labels */}
-                    <div className="mt-5">
+                    <div className="mt-6">
                         <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5">
                             Daily margin, last 14 days
                         </div>
@@ -418,15 +491,12 @@ function ReportVisual() {
                 </div>
             </div>
 
-            {/* File-format attachments. Each chip carries a coloured
-                extension badge so visitors recognise the formats their
-                team already uses (xlsx, pdf, csv, doc, html). */}
-            <div className="flex flex-wrap gap-1.5 text-[11.5px]">
-                <FileChip name="margin_by_day" ext="xlsx" tone="emerald" />
-                <FileChip name="october_close" ext="pdf" tone="rose" />
-                <FileChip name="vendors_top" ext="csv" tone="emerald" />
-                <FileChip name="ops_report" ext="doc" tone="sky" />
-                <FileChip name="board_brief" ext="html" tone="amber" />
+            {/* File-format attachments, three across so they sit on a
+                single line at this lane width. */}
+            <div className="flex flex-wrap gap-2 text-[11.5px]">
+                <FileChip name="margin_by_day" ext="xlsx" />
+                <FileChip name="october_close" ext="pdf" />
+                <FileChip name="ops_report" ext="doc" />
             </div>
         </div>
     );

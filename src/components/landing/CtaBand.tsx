@@ -46,7 +46,7 @@ export default function CtaBand({ refCallback }: CtaBandProps) {
                             className="duri-eyebrow"
                             style={{ color: "rgba(255,255,255,0.7)" }}
                         >
-                            Book a 20-minute demo
+                            Book a demo
                         </span>
                         <h2 className="mt-5 duri-section-title" style={{ color: "var(--on-brand)" }}>
                             See AI run<br />your operations.
