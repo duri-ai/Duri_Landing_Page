@@ -100,26 +100,26 @@ function RecordingVisual() {
                 </div>
 
                 {/* Form skeleton */}
-                <div className="relative h-[210px] bg-background overflow-hidden px-5 pt-5 pb-4">
+                <div className="relative h-[260px] bg-background overflow-hidden px-5 pt-5 pb-6">
                     <div className="text-[11px] uppercase tracking-wider text-on-background-secondary mb-3">
                         Create invoice
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-3.5">
                         <div className="text-[10px] text-on-background-secondary mb-1">Customer</div>
                         <div className="h-7 border border-divider-strong bg-background-warm flex items-center px-2">
                             <span className="block h-1.5 w-24 bg-divider-strong" />
                         </div>
                     </div>
 
-                    <div className="mb-3">
+                    <div className="mb-4">
                         <div className="text-[10px] text-on-background-secondary mb-1">Line items</div>
                         <div className="h-7 border border-divider-strong bg-background-warm flex items-center px-2">
                             <span className="block h-1.5 w-32 bg-divider-strong" />
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-end gap-2 pt-2">
+                    <div className="flex items-center justify-end gap-2">
                         <div className="h-7 px-3 border border-divider-strong bg-background flex items-center text-[10px] text-on-background-secondary">
                             Cancel
                         </div>
@@ -130,7 +130,7 @@ function RecordingVisual() {
 
                     <div
                         className="duri-cursor-path absolute pointer-events-none"
-                        style={{ top: "24%", left: "14%" }}
+                        style={{ top: "20%", left: "14%" }}
                         aria-hidden
                     >
                         <MousePointer2Icon
@@ -175,22 +175,49 @@ function ExecuteVisual() {
                     <span className="text-on-background">Read 12 orders, 3 vendors</span>
                 </div>
 
-                <div className="duri-msg-2 max-w-[88%] border border-divider-strong bg-background rounded-xs p-3.5">
+                <div className="duri-msg-2 relative max-w-[88%] border border-divider-strong bg-background rounded-xs p-3.5">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <span className="block w-1.5 h-1.5 bg-brand rounded-full animate-pulse" />
+                        <span className="text-[10px] uppercase tracking-wider text-on-background-secondary">
+                            Asking you
+                        </span>
+                    </div>
                     <p className="text-[13px] font-medium leading-snug text-on-background">
                         One SKU is missing a price. Match it by product name, or skip for review?
                     </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                        <span className="inline-flex items-center rounded-full border border-brand bg-brand text-on-brand text-[11.5px] px-3 py-1">
+                    <div className="mt-3 flex flex-wrap gap-2 relative">
+                        <span className="duri-btn-select inline-flex items-center rounded-full border text-[11.5px] px-3 py-1">
                             Match by name
                         </span>
                         <span className="inline-flex items-center rounded-full border border-divider-strong bg-background text-on-background text-[11.5px] px-3 py-1">
                             Skip for review
+                        </span>
+                        {/* User cursor that comes in, lands on "Match by name", and presses */}
+                        <span
+                            className="duri-clicker pointer-events-none absolute"
+                            style={{ left: 56, top: 6 }}
+                            aria-hidden
+                        >
+                            <MousePointer2Icon
+                                className="w-4 h-4 text-on-background drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+                                fill="currentColor"
+                            />
                         </span>
                     </div>
                     <div className="mt-2.5 h-7 border border-divider-strong rounded-md bg-background flex items-center px-2">
                         <span className="text-[11px] text-on-background-secondary">
                             Or type your own answer…
                         </span>
+                    </div>
+                </div>
+
+                {/* User's response, threaded under the question */}
+                <div className="duri-respond flex justify-end">
+                    <div className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-2.5 py-1 text-[11.5px] bg-background-warm">
+                        <span className="text-[10px] uppercase tracking-wider text-on-background-secondary">
+                            You
+                        </span>
+                        <span className="text-on-background">Match by name</span>
                     </div>
                 </div>
 

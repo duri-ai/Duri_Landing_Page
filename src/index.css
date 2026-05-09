@@ -250,16 +250,17 @@
   animation: duri-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Step 1: browser-recording cursor path on a form. The cursor moves
-   between input rows and a submit button, evoking a real demo. */
+/* Step 1: browser-recording cursor path on a form. The cursor traces
+   the input rows but stops short of the submit button row so it never
+   covers the Cancel/Save buttons at the bottom. */
 @keyframes duri-cursor-path {
-  0%   { top: 24%;  left: 14%; }
-  18%  { top: 24%;  left: 64%; }
-  35%  { top: 46%;  left: 64%; }
-  55%  { top: 46%;  left: 18%; }
-  72%  { top: 70%;  left: 70%; }
-  88%  { top: 70%;  left: 70%; }
-  100% { top: 24%;  left: 14%; }
+  0%   { top: 14%;  left: 14%; }
+  18%  { top: 18%;  left: 64%; }
+  35%  { top: 38%;  left: 64%; }
+  55%  { top: 38%;  left: 18%; }
+  72%  { top: 58%;  left: 65%; }
+  88%  { top: 58%;  left: 22%; }
+  100% { top: 14%;  left: 14%; }
 }
 
 .duri-cursor-path {
@@ -306,6 +307,47 @@
 .duri-msg-2 { animation: duri-msg-2 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
 .duri-msg-3 { animation: duri-msg-3 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
 
+/* Step 2: cursor enters the question widget, settles on the
+   "Match by name" pill, presses, and fades. Tied to the same 6.4s
+   cycle as duri-msg-2/3 so the click lands while the question is up
+   and just before the "Done" badge appears. */
+@keyframes duri-clicker {
+  0%, 38% { opacity: 0; transform: translate3d(40px, 18px, 0); }
+  44%     { opacity: 1; transform: translate3d(40px, 18px, 0); }
+  52%     { opacity: 1; transform: translate3d(0, 0, 0); }
+  54%     { opacity: 1; transform: translate3d(0, 0, 0) scale(0.85); }
+  57%     { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  90%     { opacity: 1; transform: translate3d(0, 0, 0); }
+  100%    { opacity: 0; transform: translate3d(0, 0, 0); }
+}
+
+.duri-clicker { animation: duri-clicker 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+
+/* "Match by name" pill: outlined-neutral until the click lands,
+   filled-brand after. */
+@keyframes duri-btn-select {
+  0%, 53% {
+    background-color: var(--background);
+    color: var(--on-background);
+    border-color: var(--divider-strong);
+  }
+  56%, 100% {
+    background-color: var(--brand);
+    color: var(--on-brand);
+    border-color: var(--brand);
+  }
+}
+
+.duri-btn-select { animation: duri-btn-select 6.4s steps(1, end) infinite; }
+
+/* User-response chip appears just after the click. */
+@keyframes duri-respond {
+  0%, 56% { opacity: 0; transform: translateY(6px); }
+  62%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+.duri-respond { animation: duri-respond 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+
 /* Step 3: highlight rotates through the three schedule rows. */
 @keyframes duri-sched-1 {
   0%, 28%, 100% { background-color: var(--brand-soft); }
@@ -346,7 +388,10 @@
   .duri-sched-1,
   .duri-sched-2,
   .duri-sched-3,
-  .duri-logo-marquee {
+  .duri-logo-marquee,
+  .duri-clicker,
+  .duri-btn-select,
+  .duri-respond {
     animation: none !important;
   }
 }
