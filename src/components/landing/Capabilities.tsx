@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
     BoxIcon,
-    CircleDotIcon,
     Code2Icon,
     FileSpreadsheetIcon,
     FileTextIcon,
@@ -27,19 +26,19 @@ const LANE_META: Record<
 > = {
     code: {
         index: "01",
-        tab: "Code sandbox",
+        tab: "Auto Scripting",
         title: "An AI developer, working on your behalf.",
         body: "When the work doesn't fit a template, the workspace writes the code, runs it in a private sandbox, and shows you what changed across your systems. You never have to read the code, because you don't have to.",
     },
     browser: {
         index: "02",
-        tab: "Live browser",
+        tab: "Live Browser",
         title: "Beyond what an API can reach.",
         body: "Vendor portals, legacy back-ends, anything behind a login. The workspace performs the work click by click, on screen. Form filling, navigation, the whole shape of a manual flow.",
     },
     report: {
         index: "03",
-        tab: "Reports & analysis",
+        tab: "Report & Analysis",
         title: "Your business, askable.",
         body: "The workspace reads across every system you've connected and packs the answer into a PDF or a spreadsheet, in the shape the rest of the company already expects.",
     },
@@ -133,151 +132,286 @@ export default function Capabilities() {
     );
 }
 
-type Op = {
-    summary: string;
+type CellOutput =
+    | { kind: "text"; value: string }
+    | {
+          kind: "table";
+          columns: string[];
+          rows: string[][];
+      }
+    | { kind: "status"; value: string };
+
+type Cell = {
     code: string[];
+    output: CellOutput;
 };
 
-const OPERATIONS: Op[] = [
+const NOTEBOOK_TOPIC = "Inventory sync";
+
+const NOTEBOOK_CELLS: Cell[] = [
     {
-        summary: "Pull customer details from the CRM",
-        code: [
-            'customers = crm.fetch(active=True)',
-            'missing = customers.where(email=None)',
-            'missing.flag("needs_review")',
-        ],
+        code: ["orders = shopify.fetch(today=True)", "orders.count()"],
+        output: { kind: "text", value: "12" },
     },
     {
-        summary: "Draft 12 invoices, $4,283 booked",
-        code: [
-            'orders = shopify.orders(today=True)',
-            'invoices = build_invoices(orders)',
-            'qbo.send_batch(invoices)',
-        ],
+        code: ["deltas = compute_deltas(orders)", "deltas.head()"],
+        output: {
+            kind: "table",
+            columns: ["sku", "qty", "delta"],
+            rows: [
+                ["DRP-12oz", "2", "-2"],
+                ["ESP-08oz", "1", "-1"],
+                ["RST-008", "1", "-1"],
+                ["BLD-04oz", "4", "-4"],
+            ],
+        },
     },
     {
-        summary: "Reconcile 4 unmatched vendor bills",
-        code: [
-            'bills = vendor.bills(week="oct-21")',
-            'unmatched = bills.missing_in(books)',
-            'unmatched.match_by("vendor_id")',
-        ],
-    },
-    {
-        summary: "Sync 28 inventory deltas to the sheet",
-        code: [
-            'deltas = inv.compute_deltas(orders)',
-            'sheet.update("inventory", deltas)',
-        ],
+        code: ['sheet.update("inventory", deltas)'],
+        output: { kind: "status", value: "Inventory synced · 12 SKUs adjusted" },
     },
 ];
 
-const HOLD_AFTER_TYPING_MS = 700;
+const TYPING_BASE_MS = 18;
+const TYPING_JITTER_MS = 22;
+const NEWLINE_PAUSE_MS = 200;
+const OUTPUT_REVEAL_MS = 320;
+const NEXT_CELL_MS = 1100;
+const LOOP_HOLD_MS = 3200;
 
-/** Lane 1 — A live-feeling sandbox. The active row expands and types
- *  out a small program; once finished, it collapses to a one-line
- *  summary and the next row takes over. The point: the AI does the
- *  coding, the user just watches outcomes pile up. */
+type CellState = {
+    typed: string[];
+    outputShown: boolean;
+};
+
+/** Lane 1 — Auto Scripting. Mimics a Jupyter-style notebook. The
+ *  workspace types a small block of code at the top, the data output
+ *  appears beneath it, and the next cell starts. Cells stack upwards
+ *  so the visitor watches the notebook fill itself in. */
 function CodeOutcomesVisual() {
     const [active, setActive] = useState(0);
-    const [typed, setTyped] = useState<string[]>([""]);
-    const advanceTimer = useRef<number | null>(null);
+    const [cellStates, setCellStates] = useState<Map<number, CellState>>(
+        () => new Map(),
+    );
+    const timerRef = useRef<number | null>(null);
 
     useEffect(() => {
-        const op = OPERATIONS[active];
         let cancelled = false;
+        let timer: number | null = null;
+        const cell = NOTEBOOK_CELLS[active];
+
+        // On a new cycle, drop everything past (and including) the active cell
+        setCellStates((prev) => {
+            const next = new Map(prev);
+            for (let i = active; i < NOTEBOOK_CELLS.length; i += 1) next.delete(i);
+            next.set(active, { typed: [""], outputShown: false });
+            return next;
+        });
+
         let lineIdx = 0;
         let charIdx = 0;
         const lines: string[] = [""];
-        setTyped([""]);
+
+        const update = (typed: string[], outputShown: boolean) => {
+            setCellStates((prev) => {
+                const next = new Map(prev);
+                next.set(active, { typed, outputShown });
+                return next;
+            });
+        };
 
         const tick = () => {
             if (cancelled) return;
-            const fullLine = op.code[lineIdx];
-            if (charIdx < fullLine.length) {
+            const full = cell.code[lineIdx];
+            if (charIdx < full.length) {
                 charIdx += 1;
-                lines[lineIdx] = fullLine.slice(0, charIdx);
-                setTyped([...lines]);
-                advanceTimer.current = window.setTimeout(tick, 18 + Math.random() * 22);
-            } else if (lineIdx < op.code.length - 1) {
+                lines[lineIdx] = full.slice(0, charIdx);
+                update([...lines], false);
+                timer = window.setTimeout(
+                    tick,
+                    TYPING_BASE_MS + Math.random() * TYPING_JITTER_MS,
+                );
+            } else if (lineIdx < cell.code.length - 1) {
                 lineIdx += 1;
                 charIdx = 0;
                 lines.push("");
-                setTyped([...lines]);
-                advanceTimer.current = window.setTimeout(tick, 220);
+                update([...lines], false);
+                timer = window.setTimeout(tick, NEWLINE_PAUSE_MS);
             } else {
-                advanceTimer.current = window.setTimeout(() => {
+                timer = window.setTimeout(() => {
                     if (cancelled) return;
-                    setActive((a) => (a + 1) % OPERATIONS.length);
-                }, HOLD_AFTER_TYPING_MS);
+                    update([...lines], true);
+                    if (active < NOTEBOOK_CELLS.length - 1) {
+                        timer = window.setTimeout(() => {
+                            if (cancelled) return;
+                            setActive(active + 1);
+                        }, NEXT_CELL_MS);
+                    } else {
+                        // Hold the completed notebook before resetting
+                        timer = window.setTimeout(() => {
+                            if (cancelled) return;
+                            setCellStates(new Map());
+                            setActive(0);
+                        }, LOOP_HOLD_MS);
+                    }
+                }, OUTPUT_REVEAL_MS);
             }
         };
 
-        advanceTimer.current = window.setTimeout(tick, 280);
+        timer = window.setTimeout(tick, 240);
+        timerRef.current = timer;
+
         return () => {
             cancelled = true;
-            if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
+            if (timer) window.clearTimeout(timer);
         };
     }, [active]);
 
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden">
-            {/* Minimal sandbox header: terminal glyph + a quiet running dot */}
+            {/* Notebook header: just the topic, no chrome */}
             <div className="flex items-center gap-2 px-3.5 py-2 border-b border-divider bg-on-background text-on-brand">
                 <Code2Icon className="w-3.5 h-3.5" />
-                <span className="font-mono text-[10.5px] text-on-brand-secondary">sandbox</span>
-                <span className="ml-auto inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-on-brand-secondary">
-                    <CircleDotIcon className="w-2.5 h-2.5 text-brand animate-pulse" />
-                    running
-                </span>
+                <span className="font-mono text-[11px]">{NOTEBOOK_TOPIC}</span>
             </div>
 
-            <ul className="divide-y divide-divider">
-                {OPERATIONS.map((op, i) => {
-                    const state =
-                        i === active ? "active" : i < active ? "done" : "queued";
+            <div className="divide-y divide-divider">
+                {NOTEBOOK_CELLS.map((cell, i) => {
+                    const state = cellStates.get(i);
+                    if (!state) return null;
+                    const isTypingCell = i === active && !state.outputShown;
                     return (
-                        <li key={op.summary} className="px-3.5 py-2.5">
-                            <div className="flex items-center gap-2.5">
-                                <Code2Icon
-                                    className={`w-3.5 h-3.5 flex-none ${
-                                        state === "queued"
-                                            ? "text-on-background-secondary opacity-50"
-                                            : "text-brand"
-                                    }`}
-                                    aria-hidden
-                                />
-                                <span
-                                    className={`text-[12.5px] truncate ${
-                                        state === "queued"
-                                            ? "text-on-background-secondary"
-                                            : "text-on-background"
-                                    }`}
-                                >
-                                    {op.summary}
-                                </span>
-                            </div>
-
-                            {state === "active" && (
-                                <pre className="mt-2 ml-6 px-3 py-2 bg-on-background text-on-brand rounded-xs font-mono text-[10.5px] leading-[1.55] whitespace-pre overflow-x-auto">
-                                    {typed.map((line, j) => {
-                                        const isLast = j === typed.length - 1;
-                                        return (
-                                            <div key={j}>
-                                                <span className="text-on-brand-secondary">{">_ "}</span>
-                                                {line}
-                                                {isLast && (
-                                                    <span className="duri-typing-caret" aria-hidden />
-                                                )}
-                                            </div>
-                                        );
-                                    })}
-                                </pre>
-                            )}
-                        </li>
+                        <NotebookCell
+                            key={i}
+                            index={i}
+                            cell={cell}
+                            typed={state.typed}
+                            outputShown={state.outputShown}
+                            isTyping={isTypingCell}
+                        />
                     );
                 })}
-            </ul>
+            </div>
+        </div>
+    );
+}
+
+function NotebookCell({
+    index,
+    cell,
+    typed,
+    outputShown,
+    isTyping,
+}: {
+    index: number;
+    cell: Cell;
+    typed: string[];
+    outputShown: boolean;
+    isTyping: boolean;
+}) {
+    const promptNumber = index + 1;
+    return (
+        <div className="px-3.5 py-3">
+            {/* Code block (terminal-styled) */}
+            <div className="flex gap-2.5 items-start">
+                <span className="font-mono text-[10.5px] text-on-background-secondary pt-0.5 select-none">
+                    In [{promptNumber}]
+                </span>
+                <pre className="flex-1 px-3 py-2 bg-on-background text-on-brand rounded-xs font-mono text-[10.5px] leading-[1.55] whitespace-pre overflow-x-auto">
+                    {typed.map((line, j) => {
+                        const isLast = j === typed.length - 1;
+                        return (
+                            <div key={j}>
+                                {line}
+                                {isTyping && isLast && (
+                                    <span className="duri-typing-caret" aria-hidden />
+                                )}
+                            </div>
+                        );
+                    })}
+                </pre>
+            </div>
+
+            {/* Output block, revealed after typing finishes */}
+            {outputShown && (
+                <div className="duri-fade-up flex gap-2.5 items-start mt-1.5">
+                    <span className="font-mono text-[10.5px] text-on-background-secondary pt-0.5 select-none">
+                        Out[{promptNumber}]
+                    </span>
+                    <div className="flex-1 min-w-0">
+                        <CellOutputView output={cell.output} />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function CellOutputView({ output }: { output: CellOutput }) {
+    if (output.kind === "text") {
+        return (
+            <div className="font-mono text-[11.5px] text-on-background">
+                {output.value}
+            </div>
+        );
+    }
+
+    if (output.kind === "status") {
+        return (
+            <div className="inline-flex items-center gap-1.5 text-[12px]">
+                <span
+                    className="inline-flex w-3.5 h-3.5 items-center justify-center bg-brand text-on-brand rounded-xs flex-none"
+                    aria-hidden
+                >
+                    <svg viewBox="0 0 12 12" className="w-2.5 h-2.5" fill="none">
+                        <path
+                            d="M2.5 6.5L5 9L9.5 3.5"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </span>
+                <span className="text-on-background">{output.value}</span>
+            </div>
+        );
+    }
+
+    // table
+    return (
+        <div className="border border-divider-strong inline-block max-w-full overflow-hidden">
+            <table className="font-mono text-[10.5px] border-collapse">
+                <thead>
+                    <tr className="bg-background-warm">
+                        {output.columns.map((c) => (
+                            <th
+                                key={c}
+                                className="text-left text-on-background-secondary uppercase tracking-wider font-medium px-2.5 py-1 border-b border-divider"
+                            >
+                                {c}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {output.rows.map((row, ri) => (
+                        <tr
+                            key={ri}
+                            className={ri < output.rows.length - 1 ? "border-b border-divider" : ""}
+                        >
+                            {row.map((cell, ci) => (
+                                <td
+                                    key={ci}
+                                    className="text-on-background px-2.5 py-1"
+                                >
+                                    {cell}
+                                </td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
