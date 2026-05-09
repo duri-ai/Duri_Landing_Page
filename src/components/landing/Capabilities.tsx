@@ -3,7 +3,6 @@ import {
     BoxIcon,
     CheckCircle2Icon,
     CircleDotIcon,
-    FileSpreadsheetIcon,
     FileTextIcon,
     GlobeIcon,
     MousePointer2Icon,
@@ -244,7 +243,7 @@ function BrowserVisual() {
                     </div>
 
                     {/* Section: Orders */}
-                    <nav className="px-3 pt-2.5 pb-2">
+                    <nav className="px-3 pt-2.5 pb-3">
                         <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5">
                             Orders
                         </div>
@@ -269,25 +268,11 @@ function BrowserVisual() {
                             ))}
                         </ul>
                     </nav>
-
-                    {/* Section: Catalog */}
-                    <nav className="px-3 pt-1 pb-3 border-t border-divider mt-auto">
-                        <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5 mt-2">
-                            Catalog
-                        </div>
-                        <ul className="space-y-0.5 text-[11px] text-on-background-secondary">
-                            <li className="px-1.5 py-1">Products</li>
-                            <li className="px-1.5 py-1">Inventory</li>
-                        </ul>
-                    </nav>
                 </aside>
 
                 <div className="px-4 py-3 relative">
                     <div className="flex items-center justify-between mb-3">
                         <div className="text-[12.5px] font-medium text-on-background">Order #4823</div>
-                        <div className="text-[10px] text-on-background-secondary uppercase tracking-wider">
-                            Awaiting
-                        </div>
                     </div>
                     <div className="border border-divider">
                         {[
@@ -325,6 +310,29 @@ function BrowserVisual() {
                 </div>
             </div>
         </div>
+    );
+}
+
+type FileTone = "emerald" | "rose" | "sky" | "amber";
+
+const FILE_TONE: Record<FileTone, string> = {
+    emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    rose: "bg-rose-50 text-rose-700 border-rose-200",
+    sky: "bg-sky-50 text-sky-700 border-sky-200",
+    amber: "bg-amber-50 text-amber-700 border-amber-200",
+};
+
+function FileChip({ name, ext, tone }: { name: string; ext: string; tone: FileTone }) {
+    return (
+        <span className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-1.5 py-1 bg-background">
+            <span
+                className={`inline-flex items-center justify-center text-[9px] font-mono font-semibold uppercase tracking-wider px-1 py-0.5 border ${FILE_TONE[tone]}`}
+                aria-hidden
+            >
+                {ext}
+            </span>
+            <span className="text-[11px] text-on-background font-mono">{name}.{ext}</span>
+        </span>
     );
 }
 
@@ -379,26 +387,15 @@ function ReportVisual() {
                 </div>
             </div>
 
-            {/* CSV attachment + question chip */}
+            {/* File-format attachments. Each chip carries a coloured
+                extension badge so visitors recognise the formats their
+                team already uses (xlsx, pdf, csv, doc, html). */}
             <div className="flex flex-wrap gap-1.5 text-[11.5px]">
-                <span className="inline-flex items-center gap-1.5 border border-divider-strong rounded-xs px-2 py-1 bg-background text-on-background">
-                    <FileSpreadsheetIcon className="w-3.5 h-3.5 text-on-background-secondary" />
-                    <span className="font-mono text-[10.5px] text-on-background-secondary">
-                        margin_by_day.csv
-                    </span>
-                </span>
-                <span className="inline-flex items-center border border-divider-strong rounded-xs px-2 py-1 bg-background text-on-background-secondary">
-                    Read from 4 systems
-                </span>
-                <span className="inline-flex items-center border border-divider-strong rounded-xs px-2 py-1 bg-background text-on-background">
-                    Accounting
-                </span>
-                <span className="inline-flex items-center border border-divider-strong rounded-xs px-2 py-1 bg-background text-on-background">
-                    Inventory
-                </span>
-                <span className="inline-flex items-center border border-divider-strong rounded-xs px-2 py-1 bg-background text-on-background">
-                    Storefront
-                </span>
+                <FileChip name="margin_by_day" ext="xlsx" tone="emerald" />
+                <FileChip name="october_close" ext="pdf" tone="rose" />
+                <FileChip name="vendors_top" ext="csv" tone="emerald" />
+                <FileChip name="ops_report" ext="doc" tone="sky" />
+                <FileChip name="board_brief" ext="html" tone="amber" />
             </div>
         </div>
     );

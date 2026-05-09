@@ -19,7 +19,7 @@ export default function Hero({ onDemoClick }: HeroProps) {
                 </div>
 
                 <h1 className="duri-monument mt-7 md:mt-9">
-                    <span className="block">Run the back office</span>
+                    <span className="block">Run your back office</span>
                     <span className="block">
                         in plain <LanguageRoulette />
                     </span>

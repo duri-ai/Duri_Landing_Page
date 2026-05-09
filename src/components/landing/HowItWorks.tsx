@@ -212,18 +212,19 @@ function ExecuteVisual() {
                     </div>
                 </div>
 
-                {/* User's response, mirrored from the desktop's
-                    InterruptUserResponseMessageBody: small icon header,
-                    then the answer line. */}
+                {/* User's response. Loosely mirrors the desktop's
+                    InterruptUserResponseMessageBody but tightened up so
+                    it sits comfortably alongside the other event chips
+                    in this animation. */}
                 <div className="duri-respond flex justify-end">
-                    <div className="max-w-[80%] border border-divider-strong rounded-md bg-background px-3 py-2.5">
-                        <div className="inline-flex items-center gap-1.5 text-[10.5px] font-medium text-on-background-secondary">
+                    <div className="inline-flex flex-col items-start gap-0.5 border border-divider-strong rounded-xs bg-background px-2.5 py-1.5">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-medium text-on-background-secondary">
                             <MessageCircleQuestionIcon className="w-3 h-3" />
                             You answered
-                        </div>
-                        <div className="mt-1 text-[12.5px] text-on-background">
+                        </span>
+                        <span className="text-[12px] text-on-background">
                             Match by name
-                        </div>
+                        </span>
                     </div>
                 </div>
 
