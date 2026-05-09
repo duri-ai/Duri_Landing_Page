@@ -163,14 +163,11 @@ function CodeOutcomesVisual() {
     ];
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-divider bg-background-warm">
-                <div className="inline-flex items-center gap-2 text-[11.5px] text-on-background-secondary">
-                    <CircleDotIcon className="w-3 h-3 text-brand animate-pulse" />
-                    <span className="uppercase tracking-wider text-[10.5px]">Done in the background</span>
-                </div>
-                <div className="text-[10.5px] uppercase tracking-wider text-on-background-secondary">
-                    4 systems
-                </div>
+            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-divider bg-background-warm">
+                <CircleDotIcon className="w-3 h-3 text-brand animate-pulse" />
+                <span className="text-[10.5px] uppercase tracking-wider text-on-background-secondary">
+                    Done in the background
+                </span>
             </div>
             <ul className="divide-y divide-divider">
                 {rows.map((r) => (
@@ -194,10 +191,6 @@ function CodeOutcomesVisual() {
                     </li>
                 ))}
             </ul>
-            <div className="border-t border-divider bg-brand-soft/60 px-4 py-2.5 text-[11.5px] text-on-background flex items-center gap-2">
-                <CheckCircle2Icon className="w-3.5 h-3.5 text-brand" />
-                You don't read the code. The workspace ran it for you.
-            </div>
         </div>
     );
 }
@@ -355,34 +348,72 @@ function ReportVisual() {
                     </span>
                 </div>
                 <div className="px-5 py-5">
-                    <div className="text-[10px] uppercase tracking-wider text-on-background-secondary">
-                        October close
+                    <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary">
+                        Operations summary, October 2026
                     </div>
-                    <div className="mt-1 text-[18px] tracking-[-0.012em] leading-tight text-on-background">
-                        Where margin went, in plain English.
+
+                    {/* Header band: report title + month-on-month delta */}
+                    <div className="mt-1 flex items-baseline justify-between gap-3">
+                        <div className="text-[15px] font-medium tracking-[-0.01em] leading-tight text-on-background">
+                            Net margin
+                        </div>
+                        <div className="text-[12.5px] font-mono text-on-background">
+                            $128,420
+                            <span className="ml-1.5 text-[10.5px] text-brand">+8.4%</span>
+                        </div>
                     </div>
+
+                    {/* Stat row */}
                     <div className="mt-4 grid grid-cols-3 gap-3 text-[11px]">
                         <div>
                             <div className="text-on-background-secondary">Top vendor</div>
-                            <div className="text-on-background font-medium mt-0.5">Vendor A · $24,180</div>
+                            <div className="text-on-background font-medium mt-0.5 font-mono">$24,180</div>
+                            <div className="text-[10px] text-on-background-secondary">Vendor A</div>
                         </div>
                         <div>
                             <div className="text-on-background-secondary">Late invoices</div>
-                            <div className="text-on-background font-medium mt-0.5">4 over 14 days</div>
+                            <div className="text-on-background font-medium mt-0.5 font-mono">4 / 142</div>
+                            <div className="text-[10px] text-on-background-secondary">$612 outstanding</div>
                         </div>
                         <div>
                             <div className="text-on-background-secondary">Inventory off</div>
-                            <div className="text-on-background font-medium mt-0.5">12 SKUs</div>
+                            <div className="text-on-background font-medium mt-0.5 font-mono">12 SKUs</div>
+                            <div className="text-[10px] text-on-background-secondary">value $1,840</div>
                         </div>
                     </div>
-                    <div className="mt-4 flex items-end gap-1 h-7">
-                        {[60, 52, 46, 38, 32, 24, 18].map((h, i) => (
-                            <div
-                                key={i}
-                                className="flex-1 bg-on-background"
-                                style={{ height: `${h}%` }}
-                            />
-                        ))}
+
+                    {/* Faux body paragraphs */}
+                    <div className="mt-5 space-y-1.5">
+                        <div className="h-1 w-full bg-divider" />
+                        <div className="h-1 w-11/12 bg-divider" />
+                        <div className="h-1 w-10/12 bg-divider" />
+                        <div className="h-1 w-9/12 bg-divider" />
+                    </div>
+
+                    {/* Mini bar chart with axis labels */}
+                    <div className="mt-5">
+                        <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary mb-1.5">
+                            Daily margin, last 14 days
+                        </div>
+                        <div className="flex items-end gap-1 h-9">
+                            {[42, 56, 38, 64, 48, 72, 60, 54, 68, 76, 50, 62, 58, 70].map((h, i) => (
+                                <div
+                                    key={i}
+                                    className="flex-1 bg-on-background"
+                                    style={{ height: `${h}%` }}
+                                />
+                            ))}
+                        </div>
+                        <div className="mt-1 flex items-center justify-between text-[9px] font-mono text-on-background-secondary">
+                            <span>Oct 12</span>
+                            <span>Oct 25</span>
+                        </div>
+                    </div>
+
+                    {/* Faux signature/disclaimer line */}
+                    <div className="mt-5 flex items-center justify-between border-t border-divider pt-2 text-[9.5px] text-on-background-secondary">
+                        <span>Confidential · Internal use</span>
+                        <span className="font-mono">Page 1 / 14</span>
                     </div>
                 </div>
             </div>
