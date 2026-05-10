@@ -12,10 +12,10 @@ export default function Hero({ onDemoClick }: HeroProps) {
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background-warm pointer-events-none" aria-hidden />
 
             <div className="relative mx-auto max-w-[1280px] px-4 md:px-8 pt-14 md:pt-20 pb-20 md:pb-28">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                    <div className="lg:col-span-7">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+                    <div className="lg:col-span-5 lg:pt-4">
                         <h1 className="duri-monument">
-                            <span className="block">Automate</span>
+                            <span className="block">Automate your</span>
                             <span className="block">business operations</span>
                             <span className="block">
                                 in <span className="text-brand">plain language</span>.
@@ -34,7 +34,7 @@ export default function Hero({ onDemoClick }: HeroProps) {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-5">
+                    <div className="lg:col-span-7">
                         <HeroProductWindow />
                     </div>
                 </div>

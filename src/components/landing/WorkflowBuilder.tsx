@@ -25,7 +25,7 @@ export default function WorkflowBuilder() {
                     <span>AI learns from you.</span>
                 </h2>
                 <p className="mt-5 text-[16px] md:text-[18px] text-on-background-secondary max-w-xl">
-                    Nothing to build. Just describe the work, the workspace learns the rest.
+                    Nothing to build. Just describe the work, AI learns the rest.
                 </p>
 
                 <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-stretch">

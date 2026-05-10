@@ -124,8 +124,10 @@ export default function HeroProductWindow() {
                             </h3>
                         </header>
 
-                        {/* Fixed-height scroll panel so the window never reflows. */}
-                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 h-[340px] overflow-y-auto">
+                        {/* Chat panel grows to fit the conversation; the
+                            staged reveal animates content in but the box
+                            never scrolls. */}
+                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[420px]">
                             <div className="flex justify-end mb-4">
                                 <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                                     <p className="text-[13.5px] leading-snug text-on-background">
@@ -168,14 +170,22 @@ export default function HeroProductWindow() {
                                             />
                                         )}
                                         {revealed >= 5 && (
-                                            <div className="text-[13.5px] leading-relaxed text-on-background">
-                                                Done! Posted{" "}
-                                                <strong className="font-semibold">INV-1042</strong> for{" "}
-                                                <strong className="font-semibold">Maria&nbsp;L.</strong> ($84.20) under{" "}
-                                                <em className="text-on-background-secondary not-italic font-mono text-[12.5px]">
-                                                    Sales:Coffee
-                                                </em>
-                                                , 13% HST, net-30. Want me to do this for every new order?
+                                            <div className="text-[13.5px] leading-relaxed text-on-background space-y-2">
+                                                <p>
+                                                    Done! 🎉 Created{" "}
+                                                    <strong className="font-semibold">INV-1042</strong> for{" "}
+                                                    <strong className="font-semibold">Maria&nbsp;L.</strong>:
+                                                </p>
+                                                <ul className="ml-4 list-disc marker:text-on-background-secondary space-y-1">
+                                                    <li>
+                                                        $84.20 · class{" "}
+                                                        <em className="not-italic font-mono text-[12.5px] text-on-background-secondary">
+                                                            Sales:Coffee
+                                                        </em>
+                                                    </li>
+                                                    <li>13% HST · Net-30 terms</li>
+                                                </ul>
+                                                <p>Want me to handle every new order this way?</p>
                                             </div>
                                         )}
                                     </div>
