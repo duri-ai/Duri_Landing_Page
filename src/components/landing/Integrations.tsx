@@ -14,17 +14,10 @@ export default function Integrations() {
             className="w-full bg-background border-t border-divider min-w-xs overflow-hidden"
         >
             <div className="mx-auto max-w-[1280px] px-4 md:px-8 pt-20 md:pt-28 pb-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                    <div className="lg:col-span-7">
-                        <span className="duri-eyebrow">Integrations</span>
-                        <h2 className="mt-5 duri-section-title">
-                            Speaks the systems<br className="hidden md:inline" /> your team works in.
-                        </h2>
-                    </div>
-                    <p className="lg:col-span-5 lg:col-start-8 duri-section-lede self-end">
-                        Lives inside the suite of software your team already runs the business on. Accounting, inventory, inbox, the rest.
-                    </p>
-                </div>
+                <h2 className="duri-section-title">Plugs into your stack.</h2>
+                <p className="mt-5 text-[16px] md:text-[18px] text-on-background-secondary max-w-xl">
+                    Across accounting, inventory, and inbox.
+                </p>
             </div>
 
             {/* Logo marquee, edge-to-edge, with soft fades on both sides */}
