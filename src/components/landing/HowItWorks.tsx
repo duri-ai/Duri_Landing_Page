@@ -240,9 +240,35 @@ function ReportVisual() {
                         </div>
                     </div>
 
-                    <div className="mt-5 flex items-center justify-between border-t border-divider pt-2 text-[9.5px] text-on-background-secondary">
-                        <span>Confidential · Internal use</span>
-                        <span className="font-mono">Page 1 / 14</span>
+                    <div className="mt-5 border-t border-divider pt-3">
+                        <div className="flex items-start justify-between gap-3">
+                            <div className="flex flex-col gap-1.5 min-w-0">
+                                <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary">
+                                    Sources · Oct 1–31, 2026
+                                </div>
+                                <ul className="flex flex-col gap-1 text-[10.5px] text-on-background-secondary">
+                                    <SourceRow
+                                        logo={`${import.meta.env.BASE_URL}logos/third_party/quickbooks_only.svg`}
+                                        name="QuickBooks"
+                                        detail="sales & expenses"
+                                    />
+                                    <SourceRow
+                                        logo={`${import.meta.env.BASE_URL}logos/third_party/airtable_only.svg`}
+                                        name="Airtable"
+                                        detail="vendor records"
+                                    />
+                                    <SourceRow
+                                        logo={`${import.meta.env.BASE_URL}logos/third_party/homebase_only.jpeg`}
+                                        name="Homebase"
+                                        detail="staff hours"
+                                        rounded
+                                    />
+                                </ul>
+                            </div>
+                            <span className="font-mono text-[9.5px] text-on-background-secondary mt-0.5 flex-none">
+                                Page 1 / 14
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,6 +279,35 @@ function ReportVisual() {
                 <FileChip name="ops_report" ext="doc" />
             </div>
         </div>
+    );
+}
+
+function SourceRow({
+    logo,
+    name,
+    detail,
+    rounded = false,
+}: {
+    logo: string;
+    name: string;
+    detail: string;
+    rounded?: boolean;
+}) {
+    return (
+        <li className="flex items-center gap-1.5">
+            <img
+                src={logo}
+                alt=""
+                aria-hidden
+                className={`w-3.5 h-3.5 object-contain flex-none ${
+                    rounded ? "rounded-[3px] overflow-hidden" : ""
+                }`}
+            />
+            <span className="truncate">
+                <span className="text-on-background">{name}</span>
+                <span> · {detail}</span>
+            </span>
+        </li>
     );
 }
 
