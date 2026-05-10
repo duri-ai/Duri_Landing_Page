@@ -243,8 +243,8 @@ function ReportVisual() {
                     <div className="mt-5 border-t border-divider pt-3">
                         <div className="flex items-start justify-between gap-3">
                             <div className="flex flex-col gap-1.5 min-w-0">
-                                <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary font-mono">
-                                    Apr 1–30, 2026
+                                <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary">
+                                    Sourced data from
                                 </div>
                                 <ul className="flex flex-col gap-1 text-[10.5px] text-on-background-secondary">
                                     <SourceRow
