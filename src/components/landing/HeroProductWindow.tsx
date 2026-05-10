@@ -127,7 +127,7 @@ export default function HeroProductWindow() {
                         {/* Chat panel grows to fit the conversation; the
                             staged reveal animates content in but the box
                             never scrolls. */}
-                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[420px]">
+                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[470px]">
                             <div className="flex justify-end mb-4">
                                 <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                                     <p className="text-[13.5px] leading-snug text-on-background">
