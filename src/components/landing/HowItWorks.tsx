@@ -250,17 +250,17 @@ function ReportVisual() {
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/quickbooks_only.svg`}
                                         name="QuickBooks"
-                                        detail="sales receipts, expense lines, and tax entries"
+                                        detail="sales & expenses"
                                     />
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/airtable_only.svg`}
                                         name="Airtable"
-                                        detail="vendor master and purchase order log"
+                                        detail="vendor records"
                                     />
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/homebase_only.jpeg`}
                                         name="Homebase"
-                                        detail="timesheets and shift schedules"
+                                        detail="staff hours"
                                         rounded
                                     />
                                 </ul>
