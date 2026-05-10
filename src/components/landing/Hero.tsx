@@ -12,7 +12,7 @@ export default function Hero({ onDemoClick }: HeroProps) {
             <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background-warm pointer-events-none" aria-hidden />
 
             <div className="relative mx-auto max-w-[1280px] px-4 md:px-8 pt-12 md:pt-16 pb-20 md:pb-24">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 items-center">
                     <div className="lg:col-span-7">
                         <h1 className="duri-monument">
                             <span className="block">Automate your business</span>
