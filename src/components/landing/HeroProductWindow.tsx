@@ -3,6 +3,8 @@ import {
     ArrowUpIcon,
     BellIcon,
     CalendarClockIcon,
+    CheckCircle2Icon,
+    FileCode2Icon,
     PlugIcon,
     PlusIcon,
     SearchIcon,
@@ -12,11 +14,35 @@ import {
 const FULL_PROMPT =
     "Can you turn Shopify order #1042 into a QuickBooks invoice?";
 
-/** Hero product window: a one-shot exchange. The user asks for a single
- *  invoice, the workspace replies in light markdown (bold key terms,
- *  italics for accounting class, two action lines with emojis). The
- *  scroll panel is fixed-height so the window doesn't reflow when the
- *  reply lands. */
+type Step =
+    | { kind: "text"; label: string }
+    | { kind: "event"; label: string; detail?: string };
+
+const STEPS: Step[] = [
+    { kind: "text", label: "On it." },
+    {
+        kind: "event",
+        label: "Reading order #1042 from Shopify",
+    },
+    {
+        kind: "event",
+        label: "Matching customer in QuickBooks",
+        detail: "Maria L.",
+    },
+    {
+        kind: "event",
+        label: "Drafting invoice",
+        detail: "INV-1042 · $84.20",
+    },
+    { kind: "text-final", label: "" } as unknown as Step,
+];
+
+/** Hero product window: a single conversation that walks the visitor
+ *  through the actual execution. The user asks once; the workspace
+ *  acknowledges, runs three quick steps, and closes with a markdown-
+ *  styled outcome message that names the invoice, the customer, the
+ *  class, and the tax. The scroll panel is fixed-height so the window
+ *  shape stays steady throughout. */
 export default function HeroProductWindow() {
     const reducedMotion =
         typeof window !== "undefined" &&
@@ -24,7 +50,7 @@ export default function HeroProductWindow() {
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const [typed, setTyped] = useState(reducedMotion ? FULL_PROMPT : "");
-    const [replyShown, setReplyShown] = useState(reducedMotion);
+    const [revealed, setRevealed] = useState(reducedMotion ? STEPS.length : 0);
 
     useEffect(() => {
         if (reducedMotion) return;
@@ -39,8 +65,15 @@ export default function HeroProductWindow() {
             } else {
                 window.setTimeout(() => {
                     if (cancelled) return;
-                    setReplyShown(true);
+                    revealNext(0);
                 }, 380);
+            }
+        };
+        const revealNext = (n: number) => {
+            if (cancelled) return;
+            setRevealed(n + 1);
+            if (n + 1 < STEPS.length) {
+                window.setTimeout(() => revealNext(n + 1), 540);
             }
         };
         const id = window.setTimeout(tick, 480);
@@ -91,9 +124,8 @@ export default function HeroProductWindow() {
                             </h3>
                         </header>
 
-                        {/* Fixed-height scroll panel so the window doesn't
-                            reflow when the reply renders. */}
-                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 h-[300px] overflow-y-auto">
+                        {/* Fixed-height scroll panel so the window never reflows. */}
+                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 h-[340px] overflow-y-auto">
                             <div className="flex justify-end mb-4">
                                 <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                                     <p className="text-[13.5px] leading-snug text-on-background">
@@ -104,7 +136,7 @@ export default function HeroProductWindow() {
                                 </div>
                             </div>
 
-                            {replyShown && (
+                            {revealed > 0 && (
                                 <div className="duri-fade-up flex flex-col">
                                     <div className="mb-1.5 flex items-center gap-1.5">
                                         <img
@@ -116,28 +148,36 @@ export default function HeroProductWindow() {
                                         <span className="text-[11.5px] font-semibold text-on-background">Duri</span>
                                     </div>
 
-                                    <div className="max-w-[92%] flex flex-col gap-2 text-[13.5px] leading-relaxed text-on-background">
-                                        <p>Got it!</p>
-                                        <ul className="flex flex-col gap-1.5">
-                                            <li className="flex items-start gap-2">
-                                                <span aria-hidden>📦</span>
-                                                <span>
-                                                    Pulled <strong className="font-semibold">order #1042</strong>{" "}
-                                                    (Maria&nbsp;L., $84.20)
-                                                </span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span aria-hidden>✅</span>
-                                                <span>
-                                                    Posted{" "}
-                                                    <strong className="font-semibold">INV-1042</strong> ·{" "}
-                                                    <em className="text-on-background-secondary not-italic font-mono text-[12.5px]">
-                                                        Sales:Coffee
-                                                    </em>
-                                                    , 13% HST, net-30
-                                                </span>
-                                            </li>
-                                        </ul>
+                                    <div className="flex flex-col gap-2 max-w-[92%]">
+                                        {revealed >= 1 && (
+                                            <p className="text-[13.5px] leading-snug text-on-background">
+                                                On it.
+                                            </p>
+                                        )}
+                                        {revealed >= 2 && <EventBadge label="Reading order #1042 from Shopify" />}
+                                        {revealed >= 3 && (
+                                            <EventBadge
+                                                label="Matching customer in QuickBooks"
+                                                detail="Maria L."
+                                            />
+                                        )}
+                                        {revealed >= 4 && (
+                                            <EventBadge
+                                                label="Drafting invoice"
+                                                detail="INV-1042 · $84.20"
+                                            />
+                                        )}
+                                        {revealed >= 5 && (
+                                            <div className="text-[13.5px] leading-relaxed text-on-background">
+                                                Done! Posted{" "}
+                                                <strong className="font-semibold">INV-1042</strong> for{" "}
+                                                <strong className="font-semibold">Maria&nbsp;L.</strong> ($84.20) under{" "}
+                                                <em className="text-on-background-secondary not-italic font-mono text-[12.5px]">
+                                                    Sales:Coffee
+                                                </em>
+                                                , 13% HST, net-30. Want me to do this for every new order?
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )}
@@ -161,6 +201,20 @@ export default function HeroProductWindow() {
                 className="absolute -z-10 -bottom-2.5 -right-2.5 w-full h-full bg-on-background pointer-events-none"
                 aria-hidden
             />
+        </div>
+    );
+}
+
+function EventBadge({ label, detail }: { label: string; detail?: string }) {
+    return (
+        <div className="inline-flex w-fit items-center gap-1.5 border border-divider-strong rounded-xs px-2 py-1 text-[12px] bg-background">
+            <FileCode2Icon className="w-3.5 h-3.5 text-on-background-secondary flex-none" aria-hidden />
+            <span className="text-on-background">
+                {label}
+                {detail && <span className="text-on-background-secondary"> · {detail}</span>}
+                <span className="text-on-background-secondary">...done!</span>
+            </span>
+            <CheckCircle2Icon className="w-3 h-3 text-brand flex-none" aria-hidden />
         </div>
     );
 }

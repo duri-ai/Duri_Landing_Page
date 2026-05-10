@@ -3,17 +3,18 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
     LockIcon,
+    MessageCircleQuestionIcon,
     MoreHorizontalIcon,
     MousePointer2Icon,
     RotateCcwIcon,
 } from "lucide-react";
 
 /**
- * Replaces the old "Reality today" section. Strikes a thick red line
- * through "Workflow Builder" and pairs it with the new promise: an AI
- * that learns from a single demonstration or one answered question.
- * Two visuals sit side by side: the asking-clarification flow on the
- * left (a real Q&A exchange) and a recorded browser demo on the right.
+ * Replaces the old "Reality today" section. Strikes a thick red X
+ * through "Workflow Builder" and pairs it with the new promise: an
+ * AI that learns from a single demonstration or one answered question.
+ * Two visuals sit side by side at matching heights: the asking-flow on
+ * the left, the recorded browser demo on the right.
  */
 export default function WorkflowBuilder() {
     return (
@@ -27,9 +28,9 @@ export default function WorkflowBuilder() {
                     Nothing to build. Just describe the work, the workspace learns the rest.
                 </p>
 
-                <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-                    <figure className="flex flex-col gap-5">
-                        <div className="flex-1">
+                <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-stretch">
+                    <figure className="flex flex-col gap-5 h-full">
+                        <div className="flex-1 flex">
                             <AskingFlowVisual />
                         </div>
                         <figcaption className="text-[15px] md:text-[16px] text-on-background leading-snug">
@@ -37,8 +38,8 @@ export default function WorkflowBuilder() {
                         </figcaption>
                     </figure>
 
-                    <figure className="flex flex-col gap-5">
-                        <div className="flex-1">
+                    <figure className="flex flex-col gap-5 h-full">
+                        <div className="flex-1 flex">
                             <BrowserDemoVisual />
                         </div>
                         <figcaption className="text-[15px] md:text-[16px] text-on-background leading-snug">
@@ -51,13 +52,13 @@ export default function WorkflowBuilder() {
     );
 }
 
-/** Full Q&A flow: user prompt at top, asking widget in middle, the
- *  answered chip at bottom. Reads as a real interrupt-and-respond
- *  exchange rather than a stripped UI element. */
+/** Full Q&A flow: user prompt at top, asking widget, the answered chip,
+ *  then a "memory updated" trace at the bottom so the section's
+ *  promise (the workspace learns) lands in the animation itself. */
 function AskingFlowVisual() {
     return (
-        <div className="flex flex-col gap-3 border border-on-background rounded-xs bg-background p-5 shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
-            {/* User message that triggered the question */}
+        <div className="w-full flex flex-col gap-3 border border-on-background rounded-xs bg-background p-5 shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
+            {/* User message */}
             <div className="flex justify-end">
                 <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                     <p className="text-[13.5px] leading-snug text-on-background">
@@ -102,35 +103,33 @@ function AskingFlowVisual() {
                 </div>
             </div>
 
-            {/* The answer is committed to memory: the workspace turns
-                this single response into a rule it'll follow next time. */}
+            {/* User's answered chip */}
             <div className="duri-respond flex justify-end">
-                <div className="inline-flex items-center gap-2 border border-on-background bg-brand-soft rounded-xs px-2.5 py-1.5">
-                    <span
-                        className="inline-flex w-4 h-4 items-center justify-center bg-brand text-on-brand rounded-xs flex-none"
-                        aria-hidden
-                    >
-                        <BrainIcon className="w-2.5 h-2.5" />
+                <div className="inline-flex flex-col items-start gap-0.5 border border-divider-strong rounded-xs bg-background px-2.5 py-1.5">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-on-background-secondary">
+                        <MessageCircleQuestionIcon className="w-3 h-3" />
+                        You answered
                     </span>
-                    <div className="flex flex-col items-start gap-0">
-                        <span className="text-[10px] font-medium uppercase tracking-wider text-on-background-secondary">
-                            Memory saved
-                        </span>
-                        <span className="text-[12px] text-on-background leading-tight">
-                            Match unmatched SKUs by product name
-                        </span>
-                    </div>
+                    <span className="text-[12px] text-on-background">Match by name</span>
+                </div>
+            </div>
+
+            {/* The workspace commits this answer to memory */}
+            <div className="duri-memory flex">
+                <div className="inline-flex items-center gap-1.5 border border-on-background bg-brand-soft rounded-xs px-2.5 py-1 text-[11.5px]">
+                    <BrainIcon className="w-3 h-3 text-brand flex-none" aria-hidden />
+                    <span className="text-on-background">Memory updated</span>
                 </div>
             </div>
         </div>
     );
 }
 
-/** Browser demo recording. Form is sized so the Cancel/Save buttons
- *  always have breathing room from the bottom edge. */
+/** Browser demo recording, matched in height to the asking flow via
+ *  the items-stretch grid wrapping the section. */
 function BrowserDemoVisual() {
     return (
-        <div className="border border-on-background rounded-xs bg-background overflow-hidden shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
+        <div className="w-full border border-on-background rounded-xs bg-background overflow-hidden shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
             <div className="flex items-center gap-3 px-3 py-2 border-b border-divider bg-background-warm">
                 <div className="flex items-center gap-1.5">
                     <span className="block w-2 h-2 rounded-full bg-[#e15c5c] duri-rec-pulse" />

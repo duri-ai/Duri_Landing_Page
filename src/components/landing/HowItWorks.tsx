@@ -39,7 +39,7 @@ export default function HowItWorks() {
                         <li
                             key={i}
                             className={`grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 py-10 md:py-14 ${
-                                i === 0 ? "border-y border-divider-strong" : "border-b border-divider-strong"
+                                i < ITEMS.length - 1 ? "border-b border-divider-strong" : ""
                             }`}
                         >
                             <div className="lg:col-span-5 flex flex-col">
@@ -62,17 +62,17 @@ export default function HowItWorks() {
     );
 }
 
-/** Item 1: a tight Shopify -> Airtable exchange. Two action rows with
- *  larger logos so the integrations read as the protagonists, no
- *  trailing detail or status icons. */
+/** Item 1: a more conversational Shopify -> Airtable exchange. Action
+ *  badges follow the desktop app's outlined Python-script badge style:
+ *  text only, no icons, with a quiet "...done!" suffix. */
 function ChatVisual() {
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
             <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[220px]">
                 <div className="flex justify-end mb-4">
-                    <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
+                    <div className="max-w-[82%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                         <p className="text-[13.5px] leading-snug text-on-background">
-                            Push this Shopify order into our Airtable.
+                            Hey, can you pull this Shopify order into our Airtable inventory? I'll let you handle the rest from here.
                         </p>
                     </div>
                 </div>
@@ -88,9 +88,9 @@ function ChatVisual() {
                         <span className="text-[11.5px] font-semibold text-on-background">Duri</span>
                     </div>
 
-                    <div className="flex flex-col gap-2.5 max-w-[92%]">
-                        <ChatActionRow logo="shopify.svg" label="Pulled Shopify order" />
-                        <ChatActionRow logo="airtable.svg" label="Updated Airtable table" />
+                    <div className="flex flex-col gap-2 max-w-[92%]">
+                        <ActionBadge label="Pulled Shopify order" />
+                        <ActionBadge label="Updated Airtable inventory table" />
                     </div>
                 </div>
             </div>
@@ -108,17 +108,14 @@ function ChatVisual() {
     );
 }
 
-function ChatActionRow({ logo, label }: { logo: string; label: string }) {
+/** Outlined action badge, matching the desktop app's Python-script
+ *  event style: text only, with a quiet trailing "...done!". */
+function ActionBadge({ label }: { label: string }) {
     return (
-        <div className="inline-flex w-fit items-center gap-3 border border-divider-strong rounded-xs px-3 py-2 text-[13.5px] bg-background">
-            <img
-                src={`${import.meta.env.BASE_URL}logos/third_party/${logo}`}
-                alt=""
-                aria-hidden
-                className="w-5 h-5 object-contain flex-none"
-            />
+        <span className="inline-flex w-fit items-baseline border border-divider-strong rounded-xs bg-background px-2.5 py-1.5 text-[12.5px] leading-snug">
             <span className="text-on-background">{label}</span>
-        </div>
+            <span className="text-on-background-secondary">...done!</span>
+        </span>
     );
 }
 

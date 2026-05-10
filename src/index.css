@@ -343,6 +343,15 @@
 
 .duri-respond { animation: duri-respond 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
 
+/* Memory chip lands a beat after the response so the order reads as
+   click -> you answered -> memory updated. */
+@keyframes duri-memory {
+  0%, 72% { opacity: 0; transform: translateY(6px); }
+  80%, 100% { opacity: 1; transform: translateY(0); }
+}
+
+.duri-memory { animation: duri-memory 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+
 /* Step 3: highlight rotates through the three schedule rows. */
 @keyframes duri-sched-1 {
   0%, 28%, 100% { background-color: var(--brand-soft); }
@@ -386,7 +395,8 @@
   .duri-logo-marquee,
   .duri-clicker,
   .duri-btn-select,
-  .duri-respond {
+  .duri-respond,
+  .duri-memory {
     animation: none !important;
   }
 }
