@@ -139,9 +139,9 @@
   }
 
   .duri-monument {
-    font-size: clamp(2rem, 4.2vw, 3.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
+    font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+    line-height: 1.04;
+    letter-spacing: -0.024em;
     font-weight: 500;
     color: var(--on-background);
   }
