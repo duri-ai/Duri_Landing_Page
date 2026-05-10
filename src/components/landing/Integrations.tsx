@@ -14,9 +14,11 @@ export default function Integrations() {
             className="w-full bg-background border-t border-divider min-w-xs overflow-hidden"
         >
             <div className="mx-auto max-w-[1280px] px-4 md:px-8 pt-20 md:pt-28 pb-12">
-                <h2 className="duri-section-title">Plugs into your stack.</h2>
+                <h2 className="duri-section-title">
+                    Connects with every app<br className="hidden md:inline" /> your team works in.
+                </h2>
                 <p className="mt-5 text-[16px] md:text-[18px] text-on-background-secondary max-w-xl">
-                    Connects with every app your team works in.
+                    Plugs into your stack.
                 </p>
             </div>
 
