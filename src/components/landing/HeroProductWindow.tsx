@@ -27,12 +27,13 @@ const STEPS: Step[] = [
     },
     {
         kind: "event",
-        label: "Creating QuickBooks invoice",
-        detail: "matched customer, line items, tax",
+        label: "Creating QuickBooks invoices",
+        detail: "12 of 12, customer auto-matched",
     },
     {
         kind: "text",
-        label: "Got it. I'll watch for new orders and handle each as it arrives.",
+        label:
+            "Each invoice posted under Sales:Coffee, 13% HST, net-30 terms. Same shape on every new order, I'll handle them as they arrive.",
     },
 ];
 

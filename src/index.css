@@ -139,9 +139,9 @@
   }
 
   .duri-monument {
-    font-size: clamp(2.75rem, 8.5vw, 7rem);
-    line-height: 0.96;
-    letter-spacing: -0.028em;
+    font-size: clamp(2.25rem, 5vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.022em;
     font-weight: 500;
     color: var(--on-background);
   }
@@ -196,6 +196,37 @@
   /* Long lede prose lock to readable measure. */
   .duri-measure {
     max-width: 38rem;
+  }
+
+  /* Crossed-out heading. Two thick red lines crossing through the
+     middle of the text, forming a deliberate X-strike instead of a
+     polite line-through. The wrapped text dims so the new phrase
+     beside it carries the weight. */
+  .duri-strike {
+    position: relative;
+    display: inline-block;
+    color: color-mix(in oklch, var(--on-background) 50%, transparent);
+  }
+
+  .duri-strike::before,
+  .duri-strike::after {
+    content: "";
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    top: 50%;
+    height: 0.07em;
+    background-color: #d23a3a;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .duri-strike::before {
+    transform: translateY(-50%) rotate(-2.5deg);
+  }
+
+  .duri-strike::after {
+    transform: translateY(-50%) rotate(2.5deg);
   }
 }
 

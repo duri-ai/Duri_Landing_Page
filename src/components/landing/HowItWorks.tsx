@@ -11,17 +11,20 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const ITEMS: { caption: string; render: () => ReactNode }[] = [
+const ITEMS: { title: string; sub: string; render: () => ReactNode }[] = [
     {
-        caption: "Ask, in plain language, across every tool.",
+        title: "Ask in plain language.",
+        sub: "Across every tool your team already uses.",
         render: () => <ChatVisual />,
     },
     {
-        caption: "Or run it on a schedule.",
+        title: "Run it on schedule.",
+        sub: "Recurring tasks, set them once.",
         render: () => <ScheduleVisual />,
     },
     {
-        caption: "Pull every record into one PDF.",
+        title: "Roll it into a report.",
+        sub: "Numbers from every connected system, in the format your team expects.",
         render: () => <ReportVisual />,
     },
 ];
@@ -30,10 +33,7 @@ export default function HowItWorks() {
     return (
         <section id="how" className="w-full bg-background min-w-xs">
             <div className="mx-auto max-w-[1280px] px-4 md:px-8 py-20 md:py-32">
-                <h2 className="duri-section-title">How it works.</h2>
-                <p className="mt-5 text-[16px] md:text-[18px] text-on-background-secondary max-w-xl">
-                    Ask, schedule, summarise.
-                </p>
+                <h2 className="duri-section-title">Ask, schedule, summarise.</h2>
 
                 <ol className="mt-14 md:mt-20 flex flex-col">
                     {ITEMS.map((item, i) => (
@@ -47,9 +47,12 @@ export default function HowItWorks() {
                                 <span className="font-mono text-[12px] tracking-wider text-brand">
                                     {String(i + 1).padStart(2, "0")}
                                 </span>
-                                <h3 className="mt-3 text-[24px] md:text-[34px] tracking-[-0.02em] leading-[1.05] text-on-background max-w-md">
-                                    {item.caption}
+                                <h3 className="mt-3 text-[24px] md:text-[32px] tracking-[-0.018em] leading-[1.05] text-on-background">
+                                    {item.title}
                                 </h3>
+                                <p className="mt-3 text-[14.5px] md:text-[16px] text-on-background-secondary max-w-md leading-relaxed">
+                                    {item.sub}
+                                </p>
                             </div>
                             <div className="lg:col-span-7">{item.render()}</div>
                         </li>
@@ -60,22 +63,21 @@ export default function HowItWorks() {
     );
 }
 
-/** Item 1: a chat exchange where the user asks across multiple apps
- *  (Outlook + Excel) and the workspace responds with both actions. */
+/** Item 1: a chat exchange where the user asks across multiple
+ *  back-office tools (Shopify, QuickBooks, Airtable) and the workspace
+ *  responds with the actions it took, each tagged with the tool. */
 function ChatVisual() {
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
-            <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[200px]">
-                {/* User message */}
+            <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[220px]">
                 <div className="flex justify-end mb-4">
                     <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                         <p className="text-[13.5px] leading-snug text-on-background">
-                            Schedule next week's demo with Andrew via Outlook, and update our Excel of leads.
+                            Pull yesterday's Shopify orders into QuickBooks and sync inventory to Airtable.
                         </p>
                     </div>
                 </div>
 
-                {/* Duri turn */}
                 <div className="flex flex-col">
                     <div className="mb-1.5 flex items-center gap-1.5">
                         <img
@@ -89,14 +91,19 @@ function ChatVisual() {
 
                     <div className="flex flex-col gap-2 max-w-[88%]">
                         <ChatActionRow
-                            logo="outlook.svg"
-                            label="Booked Wednesday, 2:00 PM"
-                            detail="Andrew confirmed via calendar invite"
+                            logo="shopify.svg"
+                            label="Pulled 24 orders"
+                            detail="yesterday, all unfulfilled"
                         />
                         <ChatActionRow
-                            logo="excel.svg"
-                            label="Updated leads sheet"
-                            detail="row 142, status: demo-scheduled"
+                            logo="quickbooks.svg"
+                            label="Created 24 invoices"
+                            detail="net-30, customer auto-matched"
+                        />
+                        <ChatActionRow
+                            logo="airtable.svg"
+                            label="Synced 18 SKUs to inventory"
+                            detail="3 new SKUs flagged for review"
                         />
                     </div>
                 </div>
@@ -141,7 +148,6 @@ function ChatActionRow({
     );
 }
 
-/** Item 2: scheduled tasks panel (real cron-style schedules). */
 function ScheduleVisual() {
     const rows = [
         {
@@ -200,8 +206,6 @@ function ScheduleVisual() {
     );
 }
 
-/** Item 3: a real-feeling PDF report rolled up from every connected
- *  system, plus a row of file attachments in different formats. */
 function ReportVisual() {
     return (
         <div className="flex flex-col gap-3">
