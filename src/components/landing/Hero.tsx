@@ -15,7 +15,7 @@ export default function Hero({ onDemoClick }: HeroProps) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                     <div className="lg:col-span-7">
                         <h1 className="duri-monument">
-                            <span className="block">AI automates your</span>
+                            <span className="block">Automate</span>
                             <span className="block">business operations</span>
                             <span className="block">
                                 in <span className="text-brand">plain language</span>.

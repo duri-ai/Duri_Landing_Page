@@ -3,7 +3,6 @@ import {
     ArrowUpIcon,
     BarChart3Icon,
     CalendarClockIcon,
-    CheckCircle2Icon,
     FileSpreadsheetIcon,
     FileTextIcon,
     FileTypeIcon,
@@ -24,7 +23,7 @@ const ITEMS: { title: string; sub: string; render: () => ReactNode }[] = [
     },
     {
         title: "Roll it into a report.",
-        sub: "Numbers from every connected system, in the format your team expects.",
+        sub: "Numbers from every connected system, ready in seconds.",
         render: () => <ReportVisual />,
     },
 ];
@@ -63,9 +62,9 @@ export default function HowItWorks() {
     );
 }
 
-/** Item 1: a chat exchange where the user asks across multiple
- *  back-office tools (Shopify, QuickBooks, Airtable) and the workspace
- *  responds with the actions it took, each tagged with the tool. */
+/** Item 1: a tight Shopify -> Airtable exchange. Two action rows with
+ *  larger logos so the integrations read as the protagonists, no
+ *  trailing detail or status icons. */
 function ChatVisual() {
     return (
         <div className="border border-on-background rounded-xs bg-background overflow-hidden shadow-[0_18px_36px_-24px_rgba(0,50,32,0.18)]">
@@ -73,7 +72,7 @@ function ChatVisual() {
                 <div className="flex justify-end mb-4">
                     <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                         <p className="text-[13.5px] leading-snug text-on-background">
-                            Pull yesterday's Shopify orders into QuickBooks and sync inventory to Airtable.
+                            Push this Shopify order into our Airtable.
                         </p>
                     </div>
                 </div>
@@ -89,22 +88,9 @@ function ChatVisual() {
                         <span className="text-[11.5px] font-semibold text-on-background">Duri</span>
                     </div>
 
-                    <div className="flex flex-col gap-2 max-w-[88%]">
-                        <ChatActionRow
-                            logo="shopify.svg"
-                            label="Pulled 24 orders"
-                            detail="yesterday, all unfulfilled"
-                        />
-                        <ChatActionRow
-                            logo="quickbooks.svg"
-                            label="Created 24 invoices"
-                            detail="net-30, customer auto-matched"
-                        />
-                        <ChatActionRow
-                            logo="airtable.svg"
-                            label="Synced 18 SKUs to inventory"
-                            detail="3 new SKUs flagged for review"
-                        />
+                    <div className="flex flex-col gap-2.5 max-w-[92%]">
+                        <ChatActionRow logo="shopify.svg" label="Pulled Shopify order" />
+                        <ChatActionRow logo="airtable.svg" label="Updated Airtable table" />
                     </div>
                 </div>
             </div>
@@ -122,28 +108,16 @@ function ChatVisual() {
     );
 }
 
-function ChatActionRow({
-    logo,
-    label,
-    detail,
-}: {
-    logo: string;
-    label: string;
-    detail: string;
-}) {
+function ChatActionRow({ logo, label }: { logo: string; label: string }) {
     return (
-        <div className="inline-flex w-fit items-center gap-2 border border-divider-strong rounded-xs px-2.5 py-1.5 text-[12px] bg-background">
+        <div className="inline-flex w-fit items-center gap-3 border border-divider-strong rounded-xs px-3 py-2 text-[13.5px] bg-background">
             <img
                 src={`${import.meta.env.BASE_URL}logos/third_party/${logo}`}
                 alt=""
                 aria-hidden
-                className="w-3.5 h-3.5 object-contain flex-none"
+                className="w-5 h-5 object-contain flex-none"
             />
-            <span className="text-on-background">
-                {label}
-                <span className="text-on-background-secondary"> · {detail}</span>
-            </span>
-            <CheckCircle2Icon className="w-3 h-3 text-brand flex-none" aria-hidden />
+            <span className="text-on-background">{label}</span>
         </div>
     );
 }
@@ -151,21 +125,21 @@ function ChatActionRow({
 function ScheduleVisual() {
     const rows = [
         {
-            name: "Daily order roll-up",
-            detail: "Yesterday's Shopify orders into the books",
+            name: "Daily Shopify import",
+            detail: "Yesterday's orders into QuickBooks",
             schedule: "Weekdays, 9:00 AM",
             cls: "duri-sched-1",
         },
         {
-            name: "Vendor bill review",
-            detail: "Reconcile bills against the PO log",
-            schedule: "Every Wed and Thu, 9:00 AM",
+            name: "Low-stock alert",
+            detail: "Below-threshold SKUs to Slack",
+            schedule: "Daily, 7:00 AM",
             cls: "duri-sched-2",
         },
         {
-            name: "Month-end close",
-            detail: "Inventory, invoices, payroll prep",
-            schedule: "Last business day, 5:00 PM",
+            name: "Vendor receipts",
+            detail: "Gmail attachments to QuickBooks",
+            schedule: "Hourly, weekdays",
             cls: "duri-sched-3",
         },
     ];

@@ -1,8 +1,8 @@
 import {
+    BrainIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
     LockIcon,
-    MessageCircleQuestionIcon,
     MoreHorizontalIcon,
     MousePointer2Icon,
     RotateCcwIcon,
@@ -21,7 +21,7 @@ export default function WorkflowBuilder() {
             <div className="mx-auto max-w-[1280px] px-4 md:px-8 py-20 md:py-28">
                 <h2 className="duri-section-title">
                     <span className="duri-strike mr-3 md:mr-4">Workflow Builder</span>
-                    <span>AI that learns from you.</span>
+                    <span>AI learns from you.</span>
                 </h2>
                 <p className="mt-5 text-[16px] md:text-[18px] text-on-background-secondary max-w-xl">
                     Nothing to build. Just describe the work, the workspace learns the rest.
@@ -102,14 +102,24 @@ function AskingFlowVisual() {
                 </div>
             </div>
 
-            {/* User's response, captured */}
+            {/* The answer is committed to memory: the workspace turns
+                this single response into a rule it'll follow next time. */}
             <div className="duri-respond flex justify-end">
-                <div className="inline-flex flex-col items-start gap-0.5 border border-divider-strong rounded-xs bg-background px-2.5 py-1.5">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-on-background-secondary">
-                        <MessageCircleQuestionIcon className="w-3 h-3" />
-                        You answered
+                <div className="inline-flex items-center gap-2 border border-on-background bg-brand-soft rounded-xs px-2.5 py-1.5">
+                    <span
+                        className="inline-flex w-4 h-4 items-center justify-center bg-brand text-on-brand rounded-xs flex-none"
+                        aria-hidden
+                    >
+                        <BrainIcon className="w-2.5 h-2.5" />
                     </span>
-                    <span className="text-[12px] text-on-background">Match by name</span>
+                    <div className="flex flex-col items-start gap-0">
+                        <span className="text-[10px] font-medium uppercase tracking-wider text-on-background-secondary">
+                            Memory saved
+                        </span>
+                        <span className="text-[12px] text-on-background leading-tight">
+                            Match unmatched SKUs by product name
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

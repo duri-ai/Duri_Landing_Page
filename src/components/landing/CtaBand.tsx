@@ -40,99 +40,88 @@ export default function CtaBand({ refCallback }: CtaBandProps) {
             />
 
             <div className="relative mx-auto max-w-[1280px] px-4 md:px-8 py-20 md:py-28">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                    <div className="lg:col-span-6">
+                <div className="max-w-lg mx-auto">
+                    <div className="flex items-center justify-center gap-3">
+                        <span className="block h-px flex-1 max-w-[60px] bg-on-brand-secondary/40" aria-hidden />
                         <span
-                            className="duri-eyebrow"
-                            style={{ color: "rgba(255,255,255,0.7)" }}
+                            className="duri-eyebrow whitespace-nowrap"
+                            style={{ color: "rgba(255,255,255,0.75)" }}
                         >
                             Book a demo
                         </span>
-                        <h2 className="mt-5 duri-section-title" style={{ color: "var(--on-brand)" }}>
-                            See AI run<br />your operations.
-                        </h2>
-                        <p className="mt-6 max-w-xl text-[16px] leading-snug text-on-brand-secondary">
-                            We'll walk through one of your real workflows live, on your screen. Same business day.
-                        </p>
+                        <span className="block h-px flex-1 max-w-[60px] bg-on-brand-secondary/40" aria-hidden />
                     </div>
 
-                    <div className="lg:col-span-6 flex flex-col gap-5">
-                        <div className="bg-background text-on-background border border-on-background rounded-xs">
-                            <div className="px-5 pt-5 pb-3 border-b border-divider">
-                                <div className="text-[11px] uppercase tracking-wider text-on-background-secondary">
-                                    {submitted ? "Request received" : "Request a demo"}
+                    <div className="mt-8 bg-background text-on-background border border-on-background rounded-xs">
+                        {submitted ? (
+                            <div className="p-6 flex items-start gap-3">
+                                <span className="flex-none w-6 h-6 bg-brand text-on-brand inline-flex items-center justify-center rounded-xs">
+                                    <CheckIcon className="w-3.5 h-3.5" strokeWidth={3} />
+                                </span>
+                                <div>
+                                    <p className="text-[15px] text-on-background font-medium">
+                                        Thanks. We'll reach out the same business day.
+                                    </p>
                                 </div>
                             </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-3">
+                                <label
+                                    htmlFor="cta-email"
+                                    className="text-[12.5px] text-on-background-secondary"
+                                >
+                                    Work email
+                                </label>
+                                <input
+                                    id="cta-email"
+                                    type="email"
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="ops@yourcompany.com"
+                                    className="border border-divider-strong focus:border-on-background bg-background text-on-background placeholder:text-on-background-secondary text-[14.5px] px-3.5 py-3 rounded-xs"
+                                />
+                                <button
+                                    type="submit"
+                                    className="group inline-flex items-center justify-center gap-2 text-on-brand bg-on-background hover:bg-brand-variant border border-on-background hover:border-brand-variant rounded-xs text-[14.5px] px-4 py-3 transition-colors duration-200 cursor-pointer"
+                                >
+                                    Request a demo
+                                    <ArrowRightIcon className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+                                </button>
+                            </form>
+                        )}
+                    </div>
 
-                            {submitted ? (
-                                <div className="p-5 sm:p-6 flex items-start gap-3">
-                                    <span className="flex-none w-6 h-6 bg-brand text-on-brand inline-flex items-center justify-center rounded-xs">
-                                        <CheckIcon className="w-3.5 h-3.5" strokeWidth={3} />
-                                    </span>
-                                    <div>
-                                        <p className="text-[15px] text-on-background font-medium">
-                                            Thanks. We'll reach out the same business day.
-                                        </p>
-                                        <p className="mt-1 text-[13px] text-on-background-secondary">
-                                            We come back with a 20-minute call slot and one specific operation to demo against.
-                                        </p>
-                                    </div>
-                                </div>
-                            ) : (
-                                <form onSubmit={handleSubmit} className="p-5 sm:p-6 flex flex-col gap-3">
-                                    <label htmlFor="cta-email" className="text-[12.5px] text-on-background-secondary">
-                                        Work email
-                                    </label>
-                                    <input
-                                        id="cta-email"
-                                        type="email"
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="ops@yourcompany.com"
-                                        className="border border-divider-strong focus:border-on-background bg-background text-on-background placeholder:text-on-background-secondary text-[14.5px] px-3.5 py-3 rounded-xs"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="group inline-flex items-center justify-center gap-2 text-on-brand bg-on-background hover:bg-brand-variant border border-on-background hover:border-brand-variant rounded-xs text-[14.5px] px-4 py-3 transition-colors duration-200 cursor-pointer"
-                                    >
-                                        Request a demo
-                                        <ArrowRightIcon className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-                                    </button>
-                                </form>
-                            )}
+                    {/* Quiet alternative: download the app */}
+                    <div className="mt-8 pt-6 border-t border-on-brand-secondary/30">
+                        <div className="text-[11px] uppercase tracking-wider text-on-brand-secondary text-center mb-3">
+                            Or get the desktop app
                         </div>
-
-                        <div className="border border-on-brand-secondary/30 bg-brand-variant/40 rounded-xs p-5">
-                            <div className="text-[11px] uppercase tracking-wider text-on-brand-secondary mb-3">
-                                Or get the desktop app
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                <a
-                                    href={MAC_DOWNLOAD}
-                                    className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
-                                >
-                                    <img
-                                        src={APPLE_LOGO}
-                                        alt=""
-                                        aria-hidden
-                                        className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
-                                    />
-                                    Download for Mac
-                                </a>
-                                <a
-                                    href={WIN_DOWNLOAD}
-                                    className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
-                                >
-                                    <img
-                                        src={WINDOWS_LOGO}
-                                        alt=""
-                                        aria-hidden
-                                        className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
-                                    />
-                                    Download for Windows
-                                </a>
-                            </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <a
+                                href={MAC_DOWNLOAD}
+                                className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
+                            >
+                                <img
+                                    src={APPLE_LOGO}
+                                    alt=""
+                                    aria-hidden
+                                    className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
+                                />
+                                Download for Mac
+                            </a>
+                            <a
+                                href={WIN_DOWNLOAD}
+                                className="group inline-flex items-center justify-center gap-2 whitespace-nowrap text-on-background bg-background hover:bg-on-background hover:text-on-brand border border-on-background rounded-xs text-[14px] px-4 py-3 transition-colors duration-200"
+                            >
+                                <img
+                                    src={WINDOWS_LOGO}
+                                    alt=""
+                                    aria-hidden
+                                    className="w-4 h-4 object-contain transition-[filter] duration-200 group-hover:invert"
+                                />
+                                Download for Windows
+                            </a>
                         </div>
                     </div>
                 </div>

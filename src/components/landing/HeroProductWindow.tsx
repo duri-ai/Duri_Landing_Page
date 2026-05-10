@@ -3,8 +3,6 @@ import {
     ArrowUpIcon,
     BellIcon,
     CalendarClockIcon,
-    CheckCircle2Icon,
-    FileCode2Icon,
     PlugIcon,
     PlusIcon,
     SearchIcon,
@@ -12,35 +10,13 @@ import {
 } from "lucide-react";
 
 const FULL_PROMPT =
-    "When a Shopify order comes in, draft the invoice in QuickBooks and update inventory.";
+    "Can you turn Shopify order #1042 into a QuickBooks invoice?";
 
-type Step = {
-    kind: "event" | "text";
-    label: string;
-    detail?: string;
-};
-
-const STEPS: Step[] = [
-    {
-        kind: "event",
-        label: "Reading 12 new orders from Shopify",
-    },
-    {
-        kind: "event",
-        label: "Creating QuickBooks invoices",
-        detail: "12 of 12, customer auto-matched",
-    },
-    {
-        kind: "text",
-        label:
-            "Each invoice posted under Sales:Coffee, 13% HST, net-30 terms. Same shape on every new order, I'll handle them as they arrive.",
-    },
-];
-
-/** Hero product window: a mirror of the desktop chat session. The
- *  composer has been simplified to a single input + send button, and
- *  the assistant turn is a tight three-step sequence (read, create,
- *  acknowledge). */
+/** Hero product window: a one-shot exchange. The user asks for a single
+ *  invoice, the workspace replies in light markdown (bold key terms,
+ *  italics for accounting class, two action lines with emojis). The
+ *  scroll panel is fixed-height so the window doesn't reflow when the
+ *  reply lands. */
 export default function HeroProductWindow() {
     const reducedMotion =
         typeof window !== "undefined" &&
@@ -48,7 +24,7 @@ export default function HeroProductWindow() {
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const [typed, setTyped] = useState(reducedMotion ? FULL_PROMPT : "");
-    const [revealed, setRevealed] = useState(reducedMotion ? STEPS.length : 0);
+    const [replyShown, setReplyShown] = useState(reducedMotion);
 
     useEffect(() => {
         if (reducedMotion) return;
@@ -63,15 +39,8 @@ export default function HeroProductWindow() {
             } else {
                 window.setTimeout(() => {
                     if (cancelled) return;
-                    revealNext(0);
+                    setReplyShown(true);
                 }, 380);
-            }
-        };
-        const revealNext = (n: number) => {
-            if (cancelled) return;
-            setRevealed(n + 1);
-            if (n + 1 < STEPS.length) {
-                window.setTimeout(() => revealNext(n + 1), 540);
             }
         };
         const id = window.setTimeout(tick, 480);
@@ -86,7 +55,6 @@ export default function HeroProductWindow() {
     return (
         <div className="relative w-full">
             <div className="relative bg-background border border-on-background rounded-xs overflow-hidden shadow-[0_28px_56px_-28px_rgba(0,50,32,0.22),0_2px_0_0_rgba(0,50,32,0.06)]">
-                {/* Title bar with traffic lights */}
                 <div className="flex items-center gap-3 px-3.5 py-2.5 border-b border-divider bg-background-warm">
                     <div className="flex items-center gap-1.5">
                         <span className="block w-2.5 h-2.5 rounded-full bg-[#e15c5c]" aria-hidden />
@@ -123,7 +91,9 @@ export default function HeroProductWindow() {
                             </h3>
                         </header>
 
-                        <div className="flex-1 px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 min-h-[260px]">
+                        {/* Fixed-height scroll panel so the window doesn't
+                            reflow when the reply renders. */}
+                        <div className="px-4 py-4 sm:px-5 sm:py-5 bg-background-warm/35 h-[300px] overflow-y-auto">
                             <div className="flex justify-end mb-4">
                                 <div className="max-w-[80%] bg-background border border-divider-strong rounded-xs px-3 py-2.5">
                                     <p className="text-[13.5px] leading-snug text-on-background">
@@ -134,7 +104,7 @@ export default function HeroProductWindow() {
                                 </div>
                             </div>
 
-                            {revealed > 0 && (
+                            {replyShown && (
                                 <div className="duri-fade-up flex flex-col">
                                     <div className="mb-1.5 flex items-center gap-1.5">
                                         <img
@@ -146,16 +116,33 @@ export default function HeroProductWindow() {
                                         <span className="text-[11.5px] font-semibold text-on-background">Duri</span>
                                     </div>
 
-                                    <div className="flex flex-col gap-2 max-w-[88%]">
-                                        {STEPS.slice(0, revealed).map((step, i) => (
-                                            <StepRow key={i} step={step} />
-                                        ))}
+                                    <div className="max-w-[92%] flex flex-col gap-2 text-[13.5px] leading-relaxed text-on-background">
+                                        <p>Got it!</p>
+                                        <ul className="flex flex-col gap-1.5">
+                                            <li className="flex items-start gap-2">
+                                                <span aria-hidden>📦</span>
+                                                <span>
+                                                    Pulled <strong className="font-semibold">order #1042</strong>{" "}
+                                                    (Maria&nbsp;L., $84.20)
+                                                </span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span aria-hidden>✅</span>
+                                                <span>
+                                                    Posted{" "}
+                                                    <strong className="font-semibold">INV-1042</strong> ·{" "}
+                                                    <em className="text-on-background-secondary not-italic font-mono text-[12.5px]">
+                                                        Sales:Coffee
+                                                    </em>
+                                                    , 13% HST, net-30
+                                                </span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             )}
                         </div>
 
-                        {/* Simplified composer: just an input row + send */}
                         <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-divider bg-background">
                             <div className="flex items-center gap-2 border border-divider-strong rounded-xs bg-background px-3 py-2">
                                 <span className="flex-1 text-[13px] text-on-background-secondary">
@@ -174,24 +161,6 @@ export default function HeroProductWindow() {
                 className="absolute -z-10 -bottom-2.5 -right-2.5 w-full h-full bg-on-background pointer-events-none"
                 aria-hidden
             />
-        </div>
-    );
-}
-
-function StepRow({ step }: { step: Step }) {
-    if (step.kind === "text") {
-        return <p className="text-[13.5px] leading-snug text-on-background">{step.label}</p>;
-    }
-    return (
-        <div className="inline-flex w-fit items-center gap-1.5 border border-divider-strong rounded-xs px-2 py-1 text-[12px] bg-background">
-            <FileCode2Icon className="w-3.5 h-3.5 text-on-background-secondary flex-none" aria-hidden />
-            <span className="text-on-background">
-                {step.label}
-                {step.detail && (
-                    <span className="text-on-background-secondary"> {step.detail}</span>
-                )}
-            </span>
-            <CheckCircle2Icon className="w-3 h-3 text-brand flex-none" aria-hidden />
         </div>
     );
 }
