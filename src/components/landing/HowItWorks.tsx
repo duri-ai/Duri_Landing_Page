@@ -184,12 +184,12 @@ function ReportVisual() {
                 <div className="flex items-center gap-2 px-4 py-2.5 border-b border-divider bg-background-warm">
                     <FileTextIcon className="w-3.5 h-3.5 text-on-background-secondary" />
                     <span className="font-mono text-[10.5px] text-on-background-secondary">
-                        october_close.pdf
+                        april_close.pdf
                     </span>
                 </div>
                 <div className="px-5 py-5">
                     <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary">
-                        Operations summary, October 2026
+                        Operations summary, April 2026
                     </div>
 
                     <div className="mt-1 flex items-baseline justify-between gap-3">
@@ -235,32 +235,32 @@ function ReportVisual() {
                             ))}
                         </div>
                         <div className="mt-1 flex items-center justify-between text-[9px] font-mono text-on-background-secondary">
-                            <span>Oct 12</span>
-                            <span>Oct 25</span>
+                            <span>Apr 12</span>
+                            <span>Apr 25</span>
                         </div>
                     </div>
 
                     <div className="mt-5 border-t border-divider pt-3">
                         <div className="flex items-start justify-between gap-3">
                             <div className="flex flex-col gap-1.5 min-w-0">
-                                <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary">
-                                    Sources · Oct 1–31, 2026
+                                <div className="text-[9.5px] uppercase tracking-wider text-on-background-secondary font-mono">
+                                    Apr 1–30, 2026
                                 </div>
                                 <ul className="flex flex-col gap-1 text-[10.5px] text-on-background-secondary">
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/quickbooks_only.svg`}
                                         name="QuickBooks"
-                                        detail="sales & expenses"
+                                        detail="sales receipts, expense lines, and tax entries"
                                     />
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/airtable_only.svg`}
                                         name="Airtable"
-                                        detail="vendor records"
+                                        detail="vendor master and purchase order log"
                                     />
                                     <SourceRow
                                         logo={`${import.meta.env.BASE_URL}logos/third_party/homebase_only.jpeg`}
                                         name="Homebase"
-                                        detail="staff hours"
+                                        detail="timesheets and shift schedules"
                                         rounded
                                     />
                                 </ul>
@@ -275,7 +275,7 @@ function ReportVisual() {
 
             <div className="flex flex-wrap gap-2 text-[11.5px]">
                 <FileChip name="margin_by_day" ext="xlsx" />
-                <FileChip name="october_close" ext="pdf" />
+                <FileChip name="april_close" ext="pdf" />
                 <FileChip name="ops_report" ext="doc" />
             </div>
         </div>
