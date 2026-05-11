@@ -258,9 +258,9 @@ function ReportVisual() {
                                         detail="vendor records"
                                     />
                                     <SourceRow
-                                        logo={`${import.meta.env.BASE_URL}logos/third_party/homebase_only.jpeg`}
-                                        name="Homebase"
-                                        detail="staff hours"
+                                        logo={`${import.meta.env.BASE_URL}logos/third_party/clover.png`}
+                                        name="Clover"
+                                        detail="POS sales"
                                         rounded
                                     />
                                 </ul>
